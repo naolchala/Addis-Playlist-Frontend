@@ -10,11 +10,21 @@ import {
 	Navbar,
 	NavbarItem,
 } from "$components/styles/LandingPageStyles";
+import axios from "axios";
+import { useEffect } from "react";
 import { BiPlay } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
 export const LandingPage = () => {
 	const router = useNavigate();
+
+	useEffect(() => {
+		axios
+			.get("https://addis-playlist-backend.vercel.app/api/")
+			.then((res) => {
+				console.log(res.data);
+			});
+	}, []);
 
 	return (
 		<Background>

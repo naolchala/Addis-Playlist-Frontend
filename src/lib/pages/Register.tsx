@@ -21,6 +21,7 @@ import {
 } from "$components/styles/RegisterStyles";
 import { Form } from "$components/styles/RegisterStyles";
 import { useFormik } from "formik";
+import { BiUserPlus } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
@@ -129,6 +130,7 @@ export const Register = () => {
 								shape="round"
 								glow
 								isLoading={formik.isSubmitting}
+								leftIcon={<BiUserPlus />}
 							>
 								Create Account
 							</Button>
