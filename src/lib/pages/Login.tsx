@@ -1,55 +1,38 @@
 import { Background } from "$components/Background";
 import { Button } from "$components/Layout/Button";
 import { Flex } from "$components/Layout/Flex";
-import {
-	FormError,
-	FormField,
-	FormikFormField,
-	FormLabel,
-	Input,
-} from "$components/Layout/FormField";
+import { FormikFormField } from "$components/Layout/FormField";
 import { HighlightedHeader } from "$components/styles/LandingPageStyles";
 import {
-	BottomLink,
-	FormHeader,
+	RegisterPageContainer,
+	RegisterIntroSection,
 	IntroHeader,
 	IntroParagraph,
-	RegisterFormContainer,
-	RegisterIntroSection,
-	RegisterPageContainer,
 	Spacer,
+	BottomLink,
+	RegisterFormContainer,
+	FormHeader,
+	Form,
 } from "$components/styles/RegisterStyles";
-import { Form } from "$components/styles/RegisterStyles";
 import { useFormik } from "formik";
+import { BiLogInCircle } from "react-icons/bi";
 import * as yup from "yup";
 
-const registerValidationSchema = yup.object().shape({
-	firstName: yup.string().required("Please, Enter your First name"),
-	lastName: yup.string().required("Please, Enter your Last name"),
-	email: yup
-		.string()
-		.required("Please, Enter your email")
-		.email("Please, Enter a valid email"),
+const loginSchema = yup.object().shape({
+	email: yup.string().required("Please, Enter your email"),
 	password: yup
 		.string()
 		.required("Please, Enter your password")
 		.min(6, "Password should be at least 6 chars."),
-	confirmPassword: yup
-		.string()
-		.required("Please, Confirm your password")
-		.oneOf([yup.ref("password")], "Your passwords don't match"),
 });
 
-export const Register = () => {
+export const LoginPage = () => {
 	const formik = useFormik({
 		initialValues: {
-			firstName: "",
-			lastName: "",
 			email: "",
 			password: "",
-			confirmPassword: "",
 		},
-		validationSchema: registerValidationSchema,
+		validationSchema: loginSchema,
 		onSubmit: (values, actions) => {
 			actions.setSubmitting(true);
 		},
@@ -71,28 +54,11 @@ export const Register = () => {
 						add to your collection.
 					</IntroParagraph>
 					<Spacer></Spacer>
-					<BottomLink href="/login">
-						Already Have an Account?
-					</BottomLink>
+					<BottomLink href="/register">Create new Account</BottomLink>
 				</RegisterIntroSection>
 				<RegisterFormContainer>
 					<Form onSubmit={formik.handleSubmit}>
-						<FormHeader>Create Account</FormHeader>
-						<Flex
-							direction={["column", "column", "row"]}
-							gap="30px"
-						>
-							<FormikFormField
-								name="firstName"
-								label="First Name"
-								formik={formik}
-							/>
-							<FormikFormField
-								name="lastName"
-								label="Last Name"
-								formik={formik}
-							/>
-						</Flex>
+						<FormHeader>Login</FormHeader>
 
 						<Flex flexDirection="column">
 							<FormikFormField
@@ -103,23 +69,15 @@ export const Register = () => {
 							/>
 						</Flex>
 
-						<Flex
-							direction={["column", "column", "row"]}
-							gap="30px"
-						>
+						<Flex flexDirection="column">
 							<FormikFormField
 								name="password"
 								label="Password"
 								formik={formik}
 								type="password"
 							/>
-							<FormikFormField
-								name="confirmPassword"
-								label="Confirm Password"
-								formik={formik}
-								type="password"
-							/>
 						</Flex>
+
 						<Flex alignSelf="flex-end" marginTop={"50px"}>
 							<Button
 								type="submit"
@@ -127,8 +85,9 @@ export const Register = () => {
 								shape="round"
 								glow
 								isLoading={formik.isSubmitting}
+								leftIcon={<BiLogInCircle />}
 							>
-								Create Account
+								Login
 							</Button>
 						</Flex>
 					</Form>

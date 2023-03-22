@@ -18,10 +18,6 @@ const Background: FC<IBackground> = ({ children }) => {
 
 	return (
 		<BackgroundContainer>
-			<DecorationCircle
-				color={colors.blue[700]}
-				style={{ left: pos.x, top: pos.y }}
-			/>
 			<DecorationCircle x="100px" y="100px" color={colors.yellow[300]} />
 			<DecorationCircle
 				x="calc(100% - 150px)"
@@ -33,6 +29,10 @@ const Background: FC<IBackground> = ({ children }) => {
 				y="100px"
 				size={"200px"}
 				color={colors.purple[900]}
+			/>
+			<DecorationCircle
+				color={colors.blue[700]}
+				style={{ left: pos.x, top: pos.y }}
 			/>
 			<BackgroundWrapper>{children}</BackgroundWrapper>
 		</BackgroundContainer>

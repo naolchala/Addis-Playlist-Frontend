@@ -1,19 +1,30 @@
 import { colorSchemes } from "$config/Theme/colors";
 import { buttonSizes } from "$config/Theme/sizes";
+import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import { ButtonHTMLAttributes, DetailedHTMLProps, FC, ReactNode } from "react";
+import { BiLoader, BiLoaderAlt } from "react-icons/bi";
 
 export const Button: FC<IButton> = ({
 	children,
 	leftIcon,
 	rightIcon,
+	isLoading,
 	...props
 }) => {
 	return (
-		<ButtonContainer {...props}>
-			{leftIcon}
-			<span>{children}</span>
-			{rightIcon}
+		<ButtonContainer {...props} disabled={isLoading}>
+			{isLoading ? (
+				<ButtonSpinner>
+					<BiLoaderAlt />
+				</ButtonSpinner>
+			) : (
+				<>
+					{leftIcon}
+					<span>{children}</span>
+					{rightIcon}
+				</>
+			)}
 		</ButtonContainer>
 	);
 };
@@ -38,6 +49,7 @@ interface IButton
 		> {
 	leftIcon?: ReactNode;
 	rightIcon?: ReactNode;
+	isLoading?: boolean;
 	children?: ReactNode;
 }
 
@@ -75,3 +87,19 @@ const ButtonContainer = styled.button((props: ButtonContainerProps) => ({
 			: undefined,
 	},
 }));
+
+const spin = keyframes`
+	from {
+		transform: rotate(0deg);
+	}
+
+	to {
+		transform: rotate(360deg);
+	}
+`;
+
+const ButtonSpinner = styled.span({
+	display: "grid",
+	placeItems: "center",
+	animation: `${spin} 500ms linear infinite`,
+});

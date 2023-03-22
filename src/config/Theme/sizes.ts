@@ -1,3 +1,4 @@
+import facepaint from "facepaint";
 export const buttonSizes = {
 	xl: {
 		padding: "1rem 3rem",
@@ -10,3 +11,9 @@ export const buttonSizes = {
 		fontSize: ".9rem",
 	},
 };
+
+export const breakpoints = [576, 768, 992, 1200];
+
+export const mediaQuery = facepaint(
+	breakpoints.map((bq) => `@media (min-width: ${bq}px)`)
+);

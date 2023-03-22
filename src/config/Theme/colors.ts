@@ -241,7 +241,13 @@ export const colors = {
 		900: "#003F5E",
 	},
 };
-
+interface colorSchemeProps {
+	[key: string]: {
+		background: string;
+		color: string;
+		hover: string;
+	};
+}
 export const colorSchemes = {
 	yellow: {
 		background: colors.yellow[300],
@@ -252,6 +258,11 @@ export const colorSchemes = {
 		background: colors.whiteAlpha[200],
 		color: colors.textColor,
 		hover: colors.whiteAlpha[400],
+	},
+	orange: {
+		background: colors.orange[300],
+		color: colors.textColor,
+		hover: colors.orange[400],
 	},
 	default: {
 		background: colors.gray[200],

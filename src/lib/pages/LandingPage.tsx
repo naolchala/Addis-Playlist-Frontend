@@ -1,4 +1,5 @@
 import { Background } from "$components/Background";
+import { Button } from "$components/Layout/Button";
 import {
 	HeroButtonsContainer,
 	HeroHeader,
@@ -8,14 +9,9 @@ import {
 	LandingPageContainer,
 	Navbar,
 	NavbarItem,
-} from "$components/LandingPage/Styles";
-import { Button } from "$components/Layout/Button";
+} from "$components/styles/LandingPageStyles";
 import { BiPlay } from "react-icons/bi";
-import {
-	useNavigate,
-	useNavigation,
-	useNavigationType,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const LandingPage = () => {
 	const router = useNavigate();
