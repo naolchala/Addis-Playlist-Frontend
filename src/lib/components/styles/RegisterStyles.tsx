@@ -31,6 +31,7 @@ export const RegisterFormContainer = styled.div(
 );
 
 export const IntroHeader = styled.h2({
+	cursor: "pointer",
 	fontSize: "4em",
 });
 
@@ -59,6 +60,7 @@ export const Form = styled.form({
 	borderRadius: "6px",
 	padding: "50px 30px",
 	gap: "20px",
+	boxShadow: "rgba(0, 0, 0, 0.25) 0px 25px 50px -12px",
 });
 
 export const FormHeader = styled.h1({

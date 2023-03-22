@@ -21,6 +21,7 @@ import {
 } from "$components/styles/RegisterStyles";
 import { Form } from "$components/styles/RegisterStyles";
 import { useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
 const registerValidationSchema = yup.object().shape({
@@ -41,6 +42,7 @@ const registerValidationSchema = yup.object().shape({
 });
 
 export const Register = () => {
+	const route = useNavigate();
 	const formik = useFormik({
 		initialValues: {
 			firstName: "",
@@ -59,7 +61,7 @@ export const Register = () => {
 		<Background>
 			<RegisterPageContainer>
 				<RegisterIntroSection>
-					<IntroHeader>
+					<IntroHeader onClick={() => route("/")}>
 						Addis <HighlightedHeader>Playlist</HighlightedHeader>
 					</IntroHeader>
 					<IntroParagraph>

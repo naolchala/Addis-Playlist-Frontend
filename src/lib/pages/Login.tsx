@@ -16,6 +16,7 @@ import {
 } from "$components/styles/RegisterStyles";
 import { useFormik } from "formik";
 import { BiLogInCircle } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
 const loginSchema = yup.object().shape({
@@ -27,6 +28,7 @@ const loginSchema = yup.object().shape({
 });
 
 export const LoginPage = () => {
+	const route = useNavigate();
 	const formik = useFormik({
 		initialValues: {
 			email: "",
@@ -42,7 +44,7 @@ export const LoginPage = () => {
 		<Background>
 			<RegisterPageContainer>
 				<RegisterIntroSection>
-					<IntroHeader>
+					<IntroHeader onClick={() => route("/")}>
 						Addis <HighlightedHeader>Playlist</HighlightedHeader>
 					</IntroHeader>
 					<IntroParagraph>

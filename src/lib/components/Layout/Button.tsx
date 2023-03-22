@@ -21,7 +21,7 @@ export const Button: FC<IButton> = ({
 			) : (
 				<>
 					{leftIcon}
-					<span>{children}</span>
+					<span style={{ textAlign: "center" }}>{children}</span>
 					{rightIcon}
 				</>
 			)}
@@ -64,6 +64,7 @@ const ButtonContainer = styled.button((props: ButtonContainerProps) => ({
 	border: "none",
 	borderRadius: props.shape ? shapeToBorderRadius[props.shape] : "3px",
 	transition: "all 300ms ease-out",
+	textAlign: "center",
 	background: props.colorScheme
 		? colorSchemes[props.colorScheme].background
 		: colorSchemes["default"].background,
@@ -85,6 +86,11 @@ const ButtonContainer = styled.button((props: ButtonContainerProps) => ({
 					colorSchemes[props.colorScheme || "default"].background
 			  }7a 0px 5px 24px;`
 			: undefined,
+	},
+
+	["span"]: {
+		textAlign: "center",
+		flex: "1",
 	},
 }));
 
