@@ -56,7 +56,9 @@ export const LoginPage = () => {
 						add to your collection.
 					</IntroParagraph>
 					<Spacer></Spacer>
-					<BottomLink href="/register">Create new Account</BottomLink>
+					<BottomLink href="/auth/register">
+						Create new Account
+					</BottomLink>
 				</RegisterIntroSection>
 				<RegisterFormContainer>
 					<Form onSubmit={formik.handleSubmit}>

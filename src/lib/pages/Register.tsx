@@ -74,7 +74,7 @@ export const Register = () => {
 						add to your collection.
 					</IntroParagraph>
 					<Spacer></Spacer>
-					<BottomLink href="/login">
+					<BottomLink href="/auth/login">
 						Already Have an Account?
 					</BottomLink>
 				</RegisterIntroSection>

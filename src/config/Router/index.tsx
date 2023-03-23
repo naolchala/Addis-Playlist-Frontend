@@ -9,11 +9,11 @@ export const routerConfig = createBrowserRouter([
 		element: <LandingPage />,
 	},
 	{
-		path: "/register",
+		path: "/auth/register",
 		element: <Register />,
 	},
 	{
-		path: "/login",
+		path: "/auth/login",
 		element: <LoginPage />,
 	},
 ]);

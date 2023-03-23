@@ -20,7 +20,7 @@ export const LandingPage = () => {
 
 	useEffect(() => {
 		axios
-			.get("https://addis-playlist-backend.vercel.app/api/")
+			.get("http://addis-playlist-backend.vercel.app/api/")
 			.then((res) => {
 				console.log(res.data);
 			});
@@ -33,7 +33,7 @@ export const LandingPage = () => {
 					<NavbarItem href="/">Home</NavbarItem>
 					<NavbarItem href="/about">About</NavbarItem>
 					<NavbarItem href="http://github.com">Github</NavbarItem>
-					<NavbarItem href="/login" primary>
+					<NavbarItem href="/auth/login" primary>
 						Login
 					</NavbarItem>
 				</Navbar>
@@ -48,7 +48,7 @@ export const LandingPage = () => {
 					</HeroSubtitle>
 					<HeroButtonsContainer>
 						<Button
-							onClick={() => router("/register")}
+							onClick={() => router("/auth/register")}
 							shape="round"
 							leftIcon={<BiPlay size={"1.3em"} />}
 							colorScheme="yellow"
