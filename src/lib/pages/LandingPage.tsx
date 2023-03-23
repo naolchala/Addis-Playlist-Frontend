@@ -20,7 +20,7 @@ export const LandingPage = () => {
 
 	useEffect(() => {
 		axios
-			.get("http://addis-playlist-backend.vercel.app/api/")
+			.get("https://addis-playlist-backend.vercel.app/api/")
 			.then((res) => {
 				console.log(res.data);
 			});
