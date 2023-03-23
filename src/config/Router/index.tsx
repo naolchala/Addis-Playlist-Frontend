@@ -1,3 +1,5 @@
+import { DashboardLayout } from "$pages/dashboard/DashboardLayout";
+import { HomeDashboard } from "$pages/dashboard/Home";
 import { LandingPage } from "$pages/LandingPage";
 import { LoginPage } from "$pages/Login";
 import { Register } from "$pages/Register";
@@ -15,5 +17,15 @@ export const routerConfig = createBrowserRouter([
 	{
 		path: "/auth/login",
 		element: <LoginPage />,
+	},
+	{
+		path: "/dashboard",
+		element: <DashboardLayout />,
+		children: [
+			{
+				path: "/dashboard/",
+				element: <HomeDashboard />,
+			},
+		],
 	},
 ]);

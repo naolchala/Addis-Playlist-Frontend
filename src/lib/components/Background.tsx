@@ -39,6 +39,39 @@ const Background: FC<IBackground> = ({ children }) => {
 	);
 };
 
+const DashboardBackground: FC<IBackground> = ({ children }) => {
+	const [pos, setPos] = useState({ x: 0, y: 0 });
+
+	useEffect(() => {
+		window.addEventListener("mousemove", (event) => {
+			setPos({ x: event.clientX, y: event.clientY });
+		});
+
+		return () => window.removeEventListener("mousemove", () => {});
+	}, []);
+
+	return (
+		<BackgroundContainer>
+			<DecorationCircle
+				x="calc(100% - 150px)"
+				y="calc(100%)"
+				color="#F95738"
+			/>
+			<DecorationCircle
+				x="calc(70%)"
+				y="100px"
+				size={"200px"}
+				color={colors.purple[900]}
+			/>
+			{/* <DecorationCircle
+				color={colors.blue[700]}
+				style={{ left: pos.x, top: pos.y }}
+			/> */}
+			<BackgroundWrapper>{children}</BackgroundWrapper>
+		</BackgroundContainer>
+	);
+};
+
 const BackgroundContainer = styled.div({
 	width: "100%",
 	height: "100vh",
@@ -74,4 +107,4 @@ const DecorationCircle = styled.div((props: DecorationCircleProps) => ({
 	transition: "all 300ms linear",
 }));
 
-export { Background };
+export { Background, DashboardBackground };

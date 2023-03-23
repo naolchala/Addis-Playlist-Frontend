@@ -2,6 +2,7 @@ import { colors } from "$config/Theme/colors";
 import { fonts } from "$config/Theme/fonts";
 import { mediaQuery } from "$config/Theme/sizes";
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
 export const LandingPageContainer = styled.div({
 	display: "flex",
@@ -29,7 +30,7 @@ export const Navbar = styled.div(
 interface NavbarItemProps {
 	primary?: boolean;
 }
-export const NavbarItem = styled.a((props: NavbarItemProps) => ({
+export const NavbarItem = styled(Link)((props: NavbarItemProps) => ({
 	padding: props.primary ? "8px 30px" : "8px 20px",
 	textTransform: "uppercase",
 	fontWeight: "bold",

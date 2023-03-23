@@ -13,14 +13,17 @@ import {
 import axios from "axios";
 import { useEffect } from "react";
 import { BiPlay } from "react-icons/bi";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const LandingPage = () => {
 	const router = useNavigate();
 
 	useEffect(() => {
 		axios
-			.get("https://addis-playlist-backend.vercel.app/api/")
+			.post("https://addis-playlist-backend.netlify.app/api/user/login", {
+				email: "naolchala6@gmail.com",
+				password: "123456",
+			})
 			.then((res) => {
 				console.log(res.data);
 			});
@@ -30,10 +33,10 @@ export const LandingPage = () => {
 		<Background>
 			<LandingPageContainer>
 				<Navbar>
-					<NavbarItem href="/">Home</NavbarItem>
-					<NavbarItem href="/about">About</NavbarItem>
-					<NavbarItem href="http://github.com">Github</NavbarItem>
-					<NavbarItem href="/auth/login" primary>
+					<NavbarItem to="/">Home</NavbarItem>
+					<NavbarItem to="/about">About</NavbarItem>
+					<NavbarItem to="http://github.com">Github</NavbarItem>
+					<NavbarItem to="/auth/login" primary={true}>
 						Login
 					</NavbarItem>
 				</Navbar>
