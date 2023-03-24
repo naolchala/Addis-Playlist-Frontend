@@ -12,6 +12,10 @@ export const buttonSizes = {
 	},
 };
 
+export const cardSizes = {
+	playlistCard: "240px",
+};
+
 export const breakpoints = [576, 768, 992, 1200];
 
 export const mediaQuery = facepaint(

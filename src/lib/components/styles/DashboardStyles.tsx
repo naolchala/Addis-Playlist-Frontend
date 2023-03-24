@@ -14,15 +14,13 @@ export const DashboardSideNav = styled.div({
 	width: "300px",
 	display: "flex",
 	flexDirection: "column",
-	borderRight: "2px solid " + colors.whiteAlpha[50],
-	background: colors.whiteAlpha[50],
+	borderRight: "1px solid " + colors.whiteAlpha[50],
 	padding: "20px",
 	gap: "10px",
-	boxShadow: "rgba(0, 0, 0, 0.2) 0px 7px 29px 0px",
 });
 
 export const SideNavTitle = styled.h1({
-	fontFamily: fonts.body,
+	fontFamily: fonts.header,
 	textTransform: "uppercase",
 	fontWeight: "900",
 	marginBottom: "20px",
@@ -76,4 +74,10 @@ export const SideNavItem: FC<ISideNav> = ({ label, to, icon }) => {
 export const DashboardOutletContainer = styled.div({
 	overflow: "auto",
 	flex: "1",
+});
+
+export const DashboardPage = styled.div({
+	display: "flex",
+	flexDirection: "column",
+	padding: "40px",
 });

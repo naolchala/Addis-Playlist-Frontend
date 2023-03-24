@@ -40,16 +40,6 @@ const Background: FC<IBackground> = ({ children }) => {
 };
 
 const DashboardBackground: FC<IBackground> = ({ children }) => {
-	const [pos, setPos] = useState({ x: 0, y: 0 });
-
-	useEffect(() => {
-		window.addEventListener("mousemove", (event) => {
-			setPos({ x: event.clientX, y: event.clientY });
-		});
-
-		return () => window.removeEventListener("mousemove", () => {});
-	}, []);
-
 	return (
 		<BackgroundContainer>
 			<DecorationCircle
@@ -63,10 +53,12 @@ const DashboardBackground: FC<IBackground> = ({ children }) => {
 				size={"200px"}
 				color={colors.purple[900]}
 			/>
-			{/* <DecorationCircle
-				color={colors.blue[700]}
-				style={{ left: pos.x, top: pos.y }}
-			/> */}
+			<DecorationCircle
+				x="50px"
+				y="calc(100% - 200px)"
+				size={"200px"}
+				color={colors.blue[900]}
+			/>
 			<BackgroundWrapper>{children}</BackgroundWrapper>
 		</BackgroundContainer>
 	);

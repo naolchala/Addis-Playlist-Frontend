@@ -28,12 +28,12 @@ export const DashboardLayout = () => {
 						<div>Playlist</div>
 					</SideNavTitle>
 					<SideNavItem
-						to={"/dashboard"}
+						to={"/dashboard/"}
 						label="Home"
 						icon={<BiHomeAlt />}
 					/>
 					<SideNavItem
-						to={"/dashboard/create"}
+						to={"/dashboard/create-playlist"}
 						label="Create Playlist"
 						icon={<BiAddToQueue />}
 					/>
