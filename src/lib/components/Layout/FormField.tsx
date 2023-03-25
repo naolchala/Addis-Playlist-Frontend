@@ -1,4 +1,5 @@
 import { colors } from "$config/Theme/colors";
+import { textFieldSizes } from "$config/Theme/sizes";
 import styled from "@emotion/styled";
 import { FC } from "react";
 
@@ -12,33 +13,39 @@ export const FormLabel = styled.label({
 	fontSize: "0.9rem",
 });
 
-export const Input = styled.input({
+interface InputProps {
+	inputSize?: keyof typeof textFieldSizes;
+}
+
+export const Input = styled.input((props: InputProps) => ({
 	outline: "none",
 	border: "none",
 	background: colors.whiteAlpha[200],
 	color: colors.white,
-	padding: "10px",
+	padding: textFieldSizes[props.inputSize || "sm"].padding,
+	fontSize: textFieldSizes[props.inputSize || "sm"].fontSize,
 	borderRadius: "4px",
 	transition: "all 300ms ease-out",
 
 	":focus": {
 		boxShadow: "0 0 0 1px " + colors.whiteAlpha[400],
 	},
-});
+}));
 
-export const Textarea = styled.textarea({
+export const Textarea = styled.textarea((props: InputProps) => ({
 	outline: "none",
 	border: "none",
 	background: colors.whiteAlpha[200],
 	color: colors.white,
-	padding: "10px",
+	padding: textFieldSizes[props.inputSize || "sm"].padding,
+	fontSize: textFieldSizes[props.inputSize || "sm"].fontSize,
 	borderRadius: "4px",
 	transition: "all 300ms ease-out",
 
 	":focus": {
 		boxShadow: "0 0 0 1px " + colors.whiteAlpha[400],
 	},
-});
+}));
 
 export const FormError = styled.span({
 	display: "block",
@@ -53,12 +60,14 @@ interface IFormikFormField {
 	formik: any;
 	rows?: number;
 	type?: string;
+	size?: keyof typeof textFieldSizes;
 }
 export const FormikFormField: FC<IFormikFormField> = ({
 	label,
 	name,
 	formik,
 	type,
+	size,
 }) => {
 	return (
 		<FormField>
@@ -68,6 +77,7 @@ export const FormikFormField: FC<IFormikFormField> = ({
 				name={name}
 				value={formik.values[name]}
 				onChange={formik.handleChange}
+				inputSize={size}
 			></Input>
 			<FormError>
 				{formik.touched[name] ? formik.errors[name] : ""}
@@ -81,6 +91,7 @@ export const FormikTextArea: FC<IFormikFormField> = ({
 	formik,
 	name,
 	rows,
+	size,
 }) => {
 	return (
 		<FormField>
@@ -90,6 +101,7 @@ export const FormikTextArea: FC<IFormikFormField> = ({
 				value={formik.values[name]}
 				onChange={formik.handleChange}
 				rows={rows}
+				inputSize={size}
 			/>
 			<FormError>
 				{formik.touched[name] ? formik.errors[name] : ""}

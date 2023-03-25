@@ -1,6 +1,9 @@
 import { CreatePlaylist } from "$pages/dashboard/CreatePlaylist";
 import { DashboardLayout } from "$pages/dashboard/DashboardLayout";
 import { HomeDashboard } from "$pages/dashboard/Home";
+import { PlaylistPage } from "$pages/dashboard/PlaylistPage";
+import { PublicDashboard } from "$pages/dashboard/PublicPlaylists";
+import { SharedDashboard } from "$pages/dashboard/SharedPlaylists";
 import { LandingPage } from "$pages/LandingPage";
 import { LoginPage } from "$pages/Login";
 import { Register } from "$pages/Register";
@@ -30,6 +33,18 @@ export const routerConfig = createBrowserRouter([
 			{
 				path: "/dashboard/create-playlist",
 				element: <CreatePlaylist />,
+			},
+			{
+				path: "/dashboard/shared",
+				element: <SharedDashboard />,
+			},
+			{
+				path: "/dashboard/public",
+				element: <PublicDashboard />,
+			},
+			{
+				path: "/dashboard/playlist/:id",
+				element: <PlaylistPage />,
 			},
 		],
 	},

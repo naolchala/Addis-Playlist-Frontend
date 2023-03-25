@@ -29,12 +29,12 @@ export const PlaylistGrid = styled.div({
 });
 
 interface PlaylistCardContainerProps {
-	bgUrl?: string;
+	bgurl?: string;
 }
 const PlaylistCardContainer = styled(NavLink)(
 	(props: PlaylistCardContainerProps) => ({
 		color: "white",
-		background: `url(${props.bgUrl}), linear-gradient(#00000069 10%, ${colors.background} 70%)`,
+		background: `url(${props.bgurl}), linear-gradient(#00000069 10%, ${colors.background} 70%)`,
 		backgroundSize: "cover",
 		backgroundPosition: "center",
 		backgroundBlendMode: "multiply",
@@ -116,7 +116,7 @@ export const PlaylistLoadingCard = () => (
 export const PlaylistCard: FC<PlaylistResponse> = (props) => {
 	return (
 		<PlaylistCardContainer
-			bgUrl={props.playlistArtURL}
+			bgurl={props.playlistArtURL}
 			to={`/dashboard/playlist/${props.id}`}
 		>
 			<Flex direction={"column"} gap="4px">

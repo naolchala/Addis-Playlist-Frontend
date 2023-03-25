@@ -14,7 +14,7 @@ import { PlaylistResponse } from "$types/playlist.types";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export const HomeDashboard = () => {
+export const PublicDashboard = () => {
 	const [loading, setLoading] = useState(false);
 	const [playlists, setPlaylists] = useState([] as PlaylistResponse[]);
 
@@ -36,9 +36,9 @@ export const HomeDashboard = () => {
 					marginBottom={"30px"}
 				>
 					<Flex direction="column" gap={"5px"}>
-						<SectionTitle>Your Playlists</SectionTitle>
+						<SectionTitle>Community</SectionTitle>
 						<SectionSubtitle>
-							Here are your private playlists. enjoy!
+							Discover a world of music waiting to be explored!
 						</SectionSubtitle>
 					</Flex>
 					<SearchField />
