@@ -1,9 +1,8 @@
-import * as dayjs from "dayjs";
+import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import duration from "dayjs/plugin/duration";
 
 dayjs.extend(relativeTime);
-dayjs.extend(duration);
 
 const relativeDateFormat = (date: string) => dayjs(date).fromNow();
 const getTimeInMinutes = (time: string) => {

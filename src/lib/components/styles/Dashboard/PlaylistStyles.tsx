@@ -59,7 +59,7 @@ export const ExampleSong: ISongCard = {
 
 export const SongCard: FC<ISongCard> = (props) => {
 	return (
-		<SongCardContainer href={props.deezerURL}>
+		<SongCardContainer>
 			<SongArtContainer>
 				<BiMusic />
 			</SongArtContainer>
@@ -70,7 +70,7 @@ export const SongCard: FC<ISongCard> = (props) => {
 				justifyContent="space-between"
 			>
 				<Flex direction={"column"}>
-					<SongTitle>{props.title}</SongTitle>
+					<SongTitle href={props.deezerURL}>{props.title}</SongTitle>
 					<SongArtist>{props.artists.join(", ")}</SongArtist>
 				</Flex>
 				<Flex direction={"column"}>
@@ -98,7 +98,7 @@ export const SongCard: FC<ISongCard> = (props) => {
 	);
 };
 
-const SongCardContainer = styled.a({
+const SongCardContainer = styled.div({
 	display: "flex",
 	width: "100%",
 	alignItems: "center",
@@ -124,8 +124,11 @@ const SongArtContainer = styled.div({
 	color: colors.blue[100],
 	marginRight: "20px",
 });
-const SongTitle = styled.h3({
+const SongTitle = styled.a({
 	fontFamily: fonts.body,
+	fontWeight: "bold",
+	color: "white",
+	fontSize: "1.1em",
 	marginBottom: "3px",
 });
 const SongArtist = styled.span({
@@ -133,4 +136,10 @@ const SongArtist = styled.span({
 });
 const SongProperty = styled.span({
 	fontWeight: "bold",
+});
+
+export const Divider = styled.div({
+	display: "block",
+	height: "1px",
+	background: colors.whiteAlpha[200],
 });

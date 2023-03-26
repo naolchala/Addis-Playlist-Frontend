@@ -2,6 +2,7 @@ import { Button } from "$components/Layout/Button";
 import { Flex } from "$components/Layout/Flex";
 import { IconButton } from "$components/Layout/IconButton";
 import {
+	Divider,
 	ExampleSong,
 	PlaylistDescription,
 	PlaylistHeader,
@@ -72,12 +73,18 @@ export const PlaylistPage = () => {
 			<Flex direction={"column"} marginTop="40px">
 				<PlaylistHeader>Songs</PlaylistHeader>
 				<Flex direction={"column"} marginTop="15px" gap="20px">
-					<SongCard {...ExampleSong} />
-					<SongCard {...ExampleSong} />
-					<SongCard {...ExampleSong} />
-					<SongCard {...ExampleSong} />
-					<SongCard {...ExampleSong} />
-					<SongCard {...ExampleSong} />
+					{[...Array(10)].map((v, k) => {
+						if (k == 0) {
+							return <SongCard {...ExampleSong} />;
+						}
+
+						return (
+							<>
+								<Divider />
+								<SongCard {...ExampleSong} />
+							</>
+						);
+					})}
 				</Flex>
 			</Flex>
 		</DashboardPage>
