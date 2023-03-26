@@ -27,6 +27,6 @@ export const GlobalStyle = css`
 
 	a {
 		text-decoration: none;
-		color: ${colors.blue};
+		color: ${colors.blue[200]};
 	}
 `;

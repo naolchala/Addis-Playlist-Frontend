@@ -1,3 +1,4 @@
+import { AddSong } from "$pages/dashboard/AddSong";
 import { CreatePlaylist } from "$pages/dashboard/CreatePlaylist";
 import { DashboardLayout } from "$pages/dashboard/DashboardLayout";
 import { HomeDashboard } from "$pages/dashboard/Home";
@@ -45,6 +46,10 @@ export const routerConfig = createBrowserRouter([
 			{
 				path: "/dashboard/playlist/:id",
 				element: <PlaylistPage />,
+			},
+			{
+				path: "/dashboard/playlist/add-song/:id",
+				element: <AddSong />,
 			},
 		],
 	},
