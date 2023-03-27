@@ -6,16 +6,16 @@ export const buttonSizes = {
 		iconBtnSize: "3rem",
 	},
 	lg: { padding: ".9rem 2rem", fontSize: "1.1rem", iconBtnSize: "2.7em" },
-	md: { padding: ".8rem 1.5rem", fontSize: "1rem", iconBtnSize: "4em" },
+	md: { padding: ".8rem 1.5rem", fontSize: "1rem", iconBtnSize: "2.5em" },
 	sm: {
 		padding: ".6rem 1rem",
 		fontSize: ".9rem",
-		iconBtnSize: "20px",
+		iconBtnSize: "1.5em",
 	},
 	xs: {
 		padding: ".5rem 1rem",
 		fontSize: ".8rem",
-		iconBtnSize: "20px",
+		iconBtnSize: "1em",
 	},
 };
 

@@ -14,5 +14,3 @@ export const Menu: FC<IMenu> = ({ children, isOpen, menuContent }) => {
 		</MenuContainer>
 	);
 };
-
-export const MenuButton = () => {};

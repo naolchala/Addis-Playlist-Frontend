@@ -48,14 +48,14 @@ export interface ISongCard {
 	id?: string;
 	title: string;
 	album?: string;
-	artists: string[];
-	duration?: string;
+	artist?: string;
+	duration?: number;
 	releaseYear?: number;
 	deezerURL?: string;
 	addedAt?: Date;
 	playlistID?: string;
 	showMenu?: boolean;
-	imgURL?: string;
+	cover?: string;
 	suggestion?: boolean;
 }
 
@@ -63,12 +63,12 @@ export const ExampleSong: ISongCard = {
 	id: "123",
 	title: "Rasputin",
 	album: "Rasputin",
-	artists: ["Majestic"],
+	artist: "Majestic",
 	addedAt: new Date(),
 	playlistID: "1234",
 	deezerURL: "https://www.deezer.com/track/1242670642",
 	releaseYear: 2018,
-	duration: "220",
+	duration: 220,
 };
 
 export const SongCard: FC<ISongCard> = (props) => {
@@ -76,8 +76,8 @@ export const SongCard: FC<ISongCard> = (props) => {
 
 	return (
 		<SongCardContainer>
-			{props.imgURL ? (
-				<SongArtImage src={props.imgURL}></SongArtImage>
+			{props.cover ? (
+				<SongArtImage src={props.cover}></SongArtImage>
 			) : (
 				<SongArtContainer>
 					<BiMusic></BiMusic>
@@ -91,7 +91,7 @@ export const SongCard: FC<ISongCard> = (props) => {
 					>
 						{props.title}
 					</SongTitle>
-					<SongArtist>{props.artists.join(", ")}</SongArtist>
+					<SongArtist>{props.artist}</SongArtist>
 				</Flex>
 				<Flex direction={"column"} flex="2">
 					<small>Album</small>
@@ -100,7 +100,7 @@ export const SongCard: FC<ISongCard> = (props) => {
 				<Flex direction={"column"} flex="1">
 					<small>Duration</small>
 					<SongProperty>
-						{getTimeInMinutes(props?.duration || "0")}
+						{getTimeInMinutes(props?.duration || 0)}
 					</SongProperty>
 				</Flex>
 				{props.releaseYear && (

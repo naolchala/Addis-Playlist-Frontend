@@ -1,7 +1,7 @@
 import { Button } from "$components/Layout/Button";
 import { Flex } from "$components/Layout/Flex";
 import { FormField, FormikFormField } from "$components/Layout/FormField";
-import { SongAutoCompleteField } from "$components/styles/Dashboard/AddSongs";
+import { SongAutoCompleteField } from "$components/styles/Dashboard/AddSongStyles";
 import {
 	SectionSubtitle,
 	SectionTitle,
@@ -15,13 +15,13 @@ import * as yup from "yup";
 const songSchema = yup.object().shape({
 	title: yup.string().required("Please, Enter the title of the song"),
 	album: yup.string(),
-	artists: yup.string(),
+	artist: yup.string(),
 });
 
 const initialSong: IFormikSong = {
 	title: "",
 	album: "",
-	artists: "",
+	artist: "",
 	releaseYear: 0,
 	duration: 0,
 	deezerURL: "",
@@ -30,7 +30,7 @@ const initialSong: IFormikSong = {
 export interface IFormikSong {
 	title: string;
 	album?: string;
-	artists: string;
+	artist: string;
 	releaseYear?: number;
 	duration: number;
 	deezerURL?: string;
@@ -62,7 +62,7 @@ export const AddSong = () => {
 						></FormikFormField>
 						<FormikFormField
 							formik={formik}
-							name="artists"
+							name="artist"
 							label="Artists"
 						></FormikFormField>
 					</Flex>
