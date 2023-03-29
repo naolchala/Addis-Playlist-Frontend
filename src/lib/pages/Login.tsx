@@ -14,8 +14,12 @@ import {
 	FormHeader,
 	Form,
 } from "$components/styles/RegisterStyles";
+import { useAppDispatch, useAppSelector } from "$stores/hooks";
+import { loginRequest } from "$stores/user/userSlice";
 import { useFormik } from "formik";
+import { useEffect } from "react";
 import { BiLogInCircle } from "react-icons/bi";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
@@ -28,6 +32,8 @@ const loginSchema = yup.object().shape({
 });
 
 export const LoginPage = () => {
+	const dispatch = useAppDispatch();
+	const user = useAppSelector((state) => state.user);
 	const route = useNavigate();
 	const formik = useFormik({
 		initialValues: {
@@ -35,10 +41,22 @@ export const LoginPage = () => {
 			password: "",
 		},
 		validationSchema: loginSchema,
-		onSubmit: (values, actions) => {
-			actions.setSubmitting(true);
+		onSubmit: async (values, actions) => {
+			dispatch(loginRequest(values));
 		},
 	});
+
+	useEffect(() => {
+		if (user.user) {
+			route("/dashboard/");
+		}
+	}, [user.user]);
+
+	useEffect(() => {
+		if (user.error && user.error.field) {
+			formik.setFieldError(user.error.field, user.error.msg);
+		}
+	}, [user.error]);
 
 	return (
 		<Background>
@@ -56,7 +74,7 @@ export const LoginPage = () => {
 						add to your collection.
 					</IntroParagraph>
 					<Spacer></Spacer>
-					<BottomLink href="/auth/register">
+					<BottomLink to="/auth/register">
 						Create new Account
 					</BottomLink>
 				</RegisterIntroSection>
@@ -88,7 +106,7 @@ export const LoginPage = () => {
 								colorScheme="yellow"
 								shape="round"
 								glow
-								isLoading={formik.isSubmitting}
+								isLoading={user.loading}
 								leftIcon={<BiLogInCircle />}
 							>
 								Login

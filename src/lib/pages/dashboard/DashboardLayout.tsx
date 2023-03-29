@@ -7,6 +7,8 @@ import {
 	SideNavTitle,
 } from "$components/styles/DashboardStyles";
 import { Spacer } from "$components/styles/RegisterStyles";
+import { useAppSelector } from "$stores/hooks";
+import { useEffect } from "react";
 import {
 	BiAddToQueue,
 	BiGlobe,
@@ -16,9 +18,16 @@ import {
 	BiUser,
 	BiWorld,
 } from "react-icons/bi";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 export const DashboardLayout = () => {
+	const user = useAppSelector((state) => state.user);
+	const route = useNavigate();
+	useEffect(() => {
+		if (!user.user) {
+			route("/auth/login/");
+		}
+	}, [user.user]);
 	return (
 		<DashboardBackground>
 			<DashboardContainer>

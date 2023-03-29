@@ -20,7 +20,10 @@ import {
 	Spacer,
 } from "$components/styles/RegisterStyles";
 import { Form } from "$components/styles/RegisterStyles";
+import { useAppDispatch, useAppSelector } from "$stores/hooks";
+import { signUpRequest } from "$stores/user/userSlice";
 import { useFormik } from "formik";
+import { useEffect } from "react";
 import { BiUserPlus } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
@@ -43,6 +46,8 @@ const registerValidationSchema = yup.object().shape({
 });
 
 export const Register = () => {
+	const user = useAppSelector((state) => state.user);
+	const dispatch = useAppDispatch();
 	const route = useNavigate();
 	const formik = useFormik({
 		initialValues: {
@@ -54,9 +59,21 @@ export const Register = () => {
 		},
 		validationSchema: registerValidationSchema,
 		onSubmit: (values, actions) => {
-			actions.setSubmitting(true);
+			dispatch(signUpRequest(values));
 		},
 	});
+
+	useEffect(() => {
+		if (user.user) {
+			route("/dashboard/");
+		}
+	}, [user.user]);
+
+	useEffect(() => {
+		if (user.error && user.error.field) {
+			formik.setFieldError(user.error.field, user.error.msg);
+		}
+	}, [user.error]);
 
 	return (
 		<Background>
@@ -74,7 +91,7 @@ export const Register = () => {
 						add to your collection.
 					</IntroParagraph>
 					<Spacer></Spacer>
-					<BottomLink href="/auth/login">
+					<BottomLink to="/auth/login">
 						Already Have an Account?
 					</BottomLink>
 				</RegisterIntroSection>
@@ -129,7 +146,7 @@ export const Register = () => {
 								colorScheme="yellow"
 								shape="round"
 								glow
-								isLoading={formik.isSubmitting}
+								isLoading={user.loading}
 								leftIcon={<BiUserPlus />}
 							>
 								Create Account

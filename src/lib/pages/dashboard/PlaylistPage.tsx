@@ -182,7 +182,13 @@ export const PlaylistPage = () => {
 							isOpen={menuOpen}
 							menuContent={
 								<MenuContent>
-									<MenuItem>
+									<MenuItem
+										onClick={() =>
+											navigate(
+												"/dashboard/playlist/edit/" + id
+											)
+										}
+									>
 										<MenuItemIcon>
 											<BiEditAlt />
 										</MenuItemIcon>

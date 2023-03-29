@@ -18,6 +18,7 @@ import {
 	BiMusic,
 	BiTrash,
 } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 
 export const PlaylistImage = styled.img({
 	objectFit: "cover",
@@ -73,6 +74,7 @@ export const ExampleSong: ISongCard = {
 
 export const SongCard: FC<ISongCard> = (props) => {
 	const [isOpen, setOpen] = useState(false);
+	const navigate = useNavigate();
 
 	return (
 		<SongCardContainer>
@@ -115,7 +117,13 @@ export const SongCard: FC<ISongCard> = (props) => {
 							isOpen={isOpen}
 							menuContent={
 								<MenuContent>
-									<MenuItem>
+									<MenuItem
+										onClick={() =>
+											navigate(
+												`/dashboard/playlist/edit-song/${props.id}`
+											)
+										}
+									>
 										<MenuItemIcon>
 											<BiEditAlt />
 										</MenuItemIcon>

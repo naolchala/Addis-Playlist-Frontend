@@ -21,7 +21,8 @@
 			"$components/*": ["./src/lib/components/*"],
 			"$pages/*": ["./src/lib/pages/*"],
 			"$stores/*": ["./src/lib/stores/*"],
-			"$types/*": ["./src/lib/types/*"]
+			"$types/*": ["./src/lib/types/*"],
+			"$api/*": ["./src/lib/api/*"]
 		}
 	},
 	"include": ["src"],

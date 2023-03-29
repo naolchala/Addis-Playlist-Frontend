@@ -1,6 +1,8 @@
 import { AddSong } from "$pages/dashboard/AddSong";
 import { CreatePlaylist } from "$pages/dashboard/CreatePlaylist";
 import { DashboardLayout } from "$pages/dashboard/DashboardLayout";
+import { EditPlaylist } from "$pages/dashboard/EditPlaylist";
+import { EditSong } from "$pages/dashboard/EditSong";
 import { HomeDashboard } from "$pages/dashboard/Home";
 import { PlaylistPage } from "$pages/dashboard/PlaylistPage";
 import { PublicDashboard } from "$pages/dashboard/PublicPlaylists";
@@ -50,6 +52,14 @@ export const routerConfig = createBrowserRouter([
 			{
 				path: "/dashboard/playlist/add-song/:id",
 				element: <AddSong />,
+			},
+			{
+				path: "/dashboard/playlist/edit/:id",
+				element: <EditPlaylist />,
+			},
+			{
+				path: "/dashboard/playlist/edit-song/:id",
+				element: <EditSong />,
 			},
 		],
 	},

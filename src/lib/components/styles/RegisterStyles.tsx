@@ -1,6 +1,7 @@
 import { colors } from "$config/Theme/colors";
 import { mediaQuery } from "$config/Theme/sizes";
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
 export const RegisterPageContainer = styled.div(
 	mediaQuery({
@@ -44,7 +45,7 @@ export const Spacer = styled.div({
 	flex: 1,
 	display: "block",
 });
-export const BottomLink = styled.a({
+export const BottomLink = styled(Link)({
 	color: colors.orange[200],
 	borderBottom: "1px solid " + colors.orange[200],
 	alignSelf: "flex-start",

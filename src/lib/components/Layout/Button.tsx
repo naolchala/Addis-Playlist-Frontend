@@ -14,17 +14,16 @@ export const Button: FC<IButton> = ({
 }) => {
 	return (
 		<ButtonContainer {...props} disabled={isLoading}>
-			{isLoading ? (
+			{isLoading && (
 				<ButtonSpinner>
 					<BiLoaderAlt />
 				</ButtonSpinner>
-			) : (
-				<>
-					{leftIcon}
-					<span style={{ textAlign: "center" }}>{children}</span>
-					{rightIcon}
-				</>
 			)}
+			<ButtonContentWrapper isLoading={isLoading}>
+				{leftIcon}
+				<span style={{ textAlign: "center" }}>{children}</span>
+				{rightIcon}
+			</ButtonContentWrapper>
 		</ButtonContainer>
 	);
 };
@@ -54,17 +53,13 @@ interface IButton
 }
 
 const ButtonContainer = styled.button((props: ButtonContainerProps) => ({
-	display: "flex",
-	alignItems: "center",
-	fontSize: buttonSizes[props.size || "md"].fontSize,
-	gap: "10px",
-	padding: buttonSizes[props.size || "md"].padding,
-	textTransform: "uppercase",
-	fontWeight: "bold",
+	position: "relative",
 	border: "none",
 	borderRadius: props.shape ? shapeToBorderRadius[props.shape] : "3px",
 	transition: "all 300ms ease-out",
 	textAlign: "center",
+	fontSize: buttonSizes[props.size || "md"].fontSize,
+	padding: buttonSizes[props.size || "md"].padding,
 	background: props.colorScheme
 		? colorSchemes[props.colorScheme].background
 		: colorSchemes["default"].background,
@@ -87,6 +82,15 @@ const ButtonContainer = styled.button((props: ButtonContainerProps) => ({
 			  }7a 0px 5px 24px;`
 			: undefined,
 	},
+}));
+
+const ButtonContentWrapper = styled.div((props: { isLoading?: boolean }) => ({
+	display: "flex",
+	alignItems: "center",
+	gap: "10px",
+	textTransform: "uppercase",
+	fontWeight: "bold",
+	opacity: props.isLoading ? 0 : 1,
 
 	["span"]: {
 		textAlign: "center",
@@ -105,6 +109,10 @@ const spin = keyframes`
 `;
 
 const ButtonSpinner = styled.span({
+	position: "absolute",
+	top: "50%",
+	left: "50%",
+	translate: "-50% -50%",
 	display: "grid",
 	placeItems: "center",
 	animation: `${spin} 500ms linear infinite`,
