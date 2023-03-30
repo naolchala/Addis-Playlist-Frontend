@@ -1,3 +1,4 @@
+import { SearchParameters } from "$api/playlists";
 import { PlaylistResponse } from "$types/playlist.types";
 import { ErrorResponse } from "$types/user.types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
@@ -17,7 +18,7 @@ const InitialPlaylistState: PlaylistStateType = {
 	loading: false,
 	playlists: [],
 	keyword: "",
-	type: "PUBLIC",
+	type: "PRIVATE",
 	error: undefined,
 	currentPlaylist: undefined,
 };
@@ -28,10 +29,13 @@ const PlaylistSlice = createSlice({
 	reducers: {
 		setType: (state, action: PayloadAction<PlaylistType>) => {
 			state.type = action.payload;
+			state.playlists = [];
 		},
-		searchRequested: (state, action: PayloadAction<string>) => {
-			state.loading = true;
+		setKeyword: (state, action: PayloadAction<string>) => {
 			state.keyword = action.payload;
+		},
+		searchRequested: (state, action: PayloadAction<SearchParameters>) => {
+			state.loading = true;
 		},
 		searchDone: (state, action: PayloadAction<PlaylistResponse[]>) => {
 			state.loading = false;
@@ -41,16 +45,29 @@ const PlaylistSlice = createSlice({
 			state.loading = false;
 			state.error = action.payload.msg;
 		},
-
+		setCurrentPlaylist: (
+			state,
+			action: PayloadAction<PlaylistResponse>
+		) => {
+			state.currentPlaylist = action.payload;
+		},
 		addPlaylist: (state, action: PayloadAction<PlaylistResponse>) => {
 			state.playlists.push(action.payload);
 		},
-
 		removePlaylist: (state, action: PayloadAction<PlaylistResponse>) => {},
+		resetPlaylist: (state) => {
+			return InitialPlaylistState;
+		},
 	},
 });
 
-export const { searchDone, searchError, searchRequested, setType } =
-	PlaylistSlice.actions;
+export const {
+	searchDone,
+	searchError,
+	searchRequested,
+	setType,
+	resetPlaylist,
+	setCurrentPlaylist,
+} = PlaylistSlice.actions;
 
 export default PlaylistSlice.reducer;

@@ -9,6 +9,7 @@ import { PublicDashboard } from "$pages/dashboard/PublicPlaylists";
 import { SharedDashboard } from "$pages/dashboard/SharedPlaylists";
 import { LandingPage } from "$pages/LandingPage";
 import { LoginPage } from "$pages/Login";
+import { Logout } from "$pages/Logout";
 import { Register } from "$pages/Register";
 import { createBrowserRouter } from "react-router-dom";
 
@@ -24,6 +25,10 @@ export const routerConfig = createBrowserRouter([
 	{
 		path: "/auth/login",
 		element: <LoginPage />,
+	},
+	{
+		path: "/logout",
+		element: <Logout />,
 	},
 	{
 		path: "/dashboard",

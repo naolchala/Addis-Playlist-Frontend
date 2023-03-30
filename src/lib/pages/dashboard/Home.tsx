@@ -10,20 +10,19 @@ import {
 } from "$components/styles/Dashboard/HomeStyles";
 import { DashboardPage } from "$components/styles/DashboardStyles";
 import { apiUrl } from "$config/api/api";
+import { useAppDispatch, useAppSelector } from "$stores/hooks";
+import { setType } from "$stores/playlist/playlistSlice";
 import { PlaylistResponse } from "$types/playlist.types";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 
 export const HomeDashboard = () => {
-	const [loading, setLoading] = useState(false);
-	const [playlists, setPlaylists] = useState([] as PlaylistResponse[]);
+	const dispatch = useAppDispatch();
+	const playlists = useAppSelector((state) => state.playlist);
 
 	useEffect(() => {
-		setLoading(true);
-		axios
-			.get(`${apiUrl}/playlist/search-public`)
-			.then((res) => setPlaylists(res.data))
-			.finally(() => setLoading(false));
+		dispatch(setType("PRIVATE"));
 	}, []);
 
 	return (
@@ -44,9 +43,12 @@ export const HomeDashboard = () => {
 					<SearchField />
 				</Flex>
 				<PlaylistGrid>
-					{!loading
-						? playlists.map((playlist) => (
-								<PlaylistCard {...playlist} key={playlist.id} />
+					{!playlists.loading
+						? playlists.playlists.map((playlist) => (
+								<PlaylistCard
+									playlist={playlist}
+									key={playlist.id}
+								/>
 						  ))
 						: [...Array(6)].map((v, k) => (
 								<PlaylistLoadingCard key={k} />

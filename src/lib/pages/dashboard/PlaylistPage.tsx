@@ -30,6 +30,7 @@ import { DashboardPage } from "$components/styles/DashboardStyles";
 import { apiUrl } from "$config/api/api";
 import { colors } from "$config/Theme/colors";
 import { fonts } from "$config/Theme/fonts";
+import { useAppSelector } from "$stores/hooks";
 import styled from "@emotion/styled";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -40,25 +41,17 @@ import {
 	BiShareAlt,
 	BiTrash,
 } from "react-icons/bi";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
 export const PlaylistPage = () => {
 	const { id } = useParams();
-	const [detail, setDetail] = useState({} as any);
-	const [loading, setLoading] = useState(false);
 	const [menuOpen, setMenuOpen] = useState(false);
 	const { isOpen, onClose, onOpen } = useDialog(false);
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		setLoading(true);
-		axios
-			.post(`${apiUrl}/playlist`, {
-				playlistID: id,
-			})
-			.then((res) => setDetail(res.data))
-			.finally(() => setLoading(false));
-	}, [id]);
+	const currentPlaylist = useAppSelector(
+		(state) => state.playlist.currentPlaylist
+	);
 
 	return (
 		<DashboardPage>
@@ -111,52 +104,28 @@ export const PlaylistPage = () => {
 					</Button>
 				</DialogFooter>
 			</Dialog>
+
 			<Flex direction="row" gap={"40px"}>
 				<Flex height={"100%"} width="250px">
-					<PlaylistImage src="https://images.unsplash.com/photo-1626358134206-0d1b77d48f21?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80" />
+					<PlaylistImage src={currentPlaylist?.playlistArtURL} />
 				</Flex>
 				<Flex flex={"1"} direction="column">
-					<PlaylistHeader>
-						{loading ? (
-							<Skeleton height="40px" width="200px" />
-						) : (
-							detail?.label
-						)}
-					</PlaylistHeader>
+					<PlaylistHeader>{currentPlaylist?.label}</PlaylistHeader>
 					<Flex
 						flexWrap="wrap"
 						direction={"row"}
 						gap="10px"
 						marginBottom={"20px"}
 					>
-						{loading ? (
-							<>
-								<Skeleton height="20px" width="70px" />
-								<Skeleton height="20px" width="80px" />
-							</>
-						) : (
-							<>
-								<PlaylistProperty>
-									{detail._count?.Songs} Songs
-								</PlaylistProperty>
-								<PlaylistProperty>
-									{detail?.visibility}
-								</PlaylistProperty>
-							</>
-						)}
+						<PlaylistProperty>
+							{currentPlaylist?._count?.Songs} Songs
+						</PlaylistProperty>
+						<PlaylistProperty>
+							{currentPlaylist?.visibility}
+						</PlaylistProperty>
 					</Flex>
 					<PlaylistDescription>
-						{loading ? (
-							<>
-								{[...Array(4)].map((v, k) => (
-									<Flex marginBottom={"5px"}>
-										<Skeleton height="10px" width="80%" />
-									</Flex>
-								))}
-							</>
-						) : (
-							detail?.desc
-						)}
+						{currentPlaylist?.desc}
 					</PlaylistDescription>
 					<Flex direction={"row"} gap="20px">
 						<Button

@@ -7,13 +7,15 @@ import {
 	SideNavTitle,
 } from "$components/styles/DashboardStyles";
 import { Spacer } from "$components/styles/RegisterStyles";
-import { useAppSelector } from "$stores/hooks";
+import { useAppDispatch, useAppSelector } from "$stores/hooks";
+import { searchRequested } from "$stores/playlist/playlistSlice";
 import { useEffect } from "react";
 import {
 	BiAddToQueue,
 	BiGlobe,
 	BiGlobeAlt,
 	BiHomeAlt,
+	BiLogOutCircle,
 	BiShareAlt,
 	BiUser,
 	BiWorld,
@@ -22,12 +24,26 @@ import { Outlet, useNavigate } from "react-router-dom";
 
 export const DashboardLayout = () => {
 	const user = useAppSelector((state) => state.user);
+	const playlist = useAppSelector((state) => state.playlist);
+	const dispatch = useAppDispatch();
 	const route = useNavigate();
+
 	useEffect(() => {
 		if (!user.user) {
 			route("/auth/login/");
 		}
 	}, [user.user]);
+
+	useEffect(() => {
+		dispatch(
+			searchRequested({
+				keyword: playlist.keyword,
+				type: playlist.type,
+				token: user.user?.token || "",
+			})
+		);
+	}, [playlist.type, playlist.keyword]);
+
 	return (
 		<DashboardBackground>
 			<DashboardContainer>
@@ -59,9 +75,9 @@ export const DashboardLayout = () => {
 					<Spacer />
 
 					<SideNavItem
-						to={"/dashboard/create"}
-						label="profile"
-						icon={<BiUser />}
+						to={"/logout"}
+						label="Logout"
+						icon={<BiLogOutCircle />}
 					/>
 				</DashboardSideNav>
 				<DashboardOutletContainer>

@@ -62,6 +62,7 @@ const DialogContainer = styled.div({
 	justifyContent: "center",
 	alignItems: "center",
 	padding: "20px",
+	zIndex: "999",
 });
 
 const DialogWindow = styled.div({

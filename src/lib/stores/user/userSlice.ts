@@ -24,6 +24,7 @@ const UserSlice = createSlice({
 		loginDone: (state, action: PayloadAction<UserResponse>) => {
 			state.user = action.payload;
 			state.loading = false;
+			state.error = undefined;
 		},
 		loginError: (state, action: PayloadAction<ErrorResponse>) => {
 			state.error = action.payload;
@@ -32,8 +33,9 @@ const UserSlice = createSlice({
 		signUpRequest: (state, action: PayloadAction<SignupParameters>) => {
 			state.loading = true;
 		},
-		logout: (state, action) => {
+		logout: (state) => {
 			state.user = undefined;
+			state.error = undefined;
 		},
 	},
 });

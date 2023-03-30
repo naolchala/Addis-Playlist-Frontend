@@ -3,6 +3,8 @@ import { colors } from "$config/Theme/colors";
 import { fonts } from "$config/Theme/fonts";
 import { cardSizes } from "$config/Theme/sizes";
 import { relativeDateFormat } from "$config/utils/dayjs";
+import { useAppDispatch } from "$stores/hooks";
+import { setCurrentPlaylist } from "$stores/playlist/playlistSlice";
 import { PlaylistResponse } from "$types/playlist.types";
 import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
@@ -113,26 +115,33 @@ export const PlaylistLoadingCard = () => (
 	<Skeleton height={cardSizes.playlistCard} borderRadius="10px" />
 );
 
-export const PlaylistCard: FC<PlaylistResponse> = (props) => {
+export const PlaylistCard = ({ playlist }: { playlist: PlaylistResponse }) => {
+	const dispatch = useAppDispatch();
+
 	return (
 		<PlaylistCardContainer
-			bgurl={props.playlistArtURL}
-			to={`/dashboard/playlist/${props.id}`}
+			onClick={() => dispatch(setCurrentPlaylist(playlist))}
+			bgurl={playlist.playlistArtURL}
+			to={`/dashboard/playlist/${playlist.id}`}
 		>
 			<Flex direction={"column"} gap="4px">
 				<PlaylistCardLabel>
-					{props.label}
-					{props.favorite && <BsStarFill fill={colors.yellow[300]} />}
+					{playlist.label}
+					{playlist.favorite && (
+						<BsStarFill fill={colors.yellow[300]} />
+					)}
 				</PlaylistCardLabel>
 				<Flex gap={"10px"} margin="5px 0">
 					<PlaylistCardChips>
-						{props._count?.Songs}{" "}
-						{(props._count?.Songs || 0) > 1 ? "Songs" : "Song"}
+						{playlist._count?.Songs}{" "}
+						{(playlist._count?.Songs || 0) > 1 ? "Songs" : "Song"}
 					</PlaylistCardChips>
-					<PlaylistCardChips>{props.visibility} </PlaylistCardChips>
+					<PlaylistCardChips>
+						{playlist.visibility}{" "}
+					</PlaylistCardChips>
 				</Flex>
 				<PlaylistDate>
-					Created {relativeDateFormat(props.createdAt)}
+					Created {relativeDateFormat(playlist.createdAt)}
 				</PlaylistDate>
 			</Flex>
 		</PlaylistCardContainer>
