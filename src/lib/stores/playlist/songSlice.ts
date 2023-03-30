@@ -1,3 +1,4 @@
+import { LoadSongsParameters } from "$api/songs";
 import { SongResponse } from "$types/songs.types";
 import { ErrorResponse } from "$types/user.types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
@@ -18,7 +19,10 @@ const SongSlice = createSlice({
 	name: "song",
 	initialState: InitialSongState,
 	reducers: {
-		loadSongsRequested: (state, actions) => {
+		loadSongsRequested: (
+			state,
+			action: PayloadAction<LoadSongsParameters>
+		) => {
 			state.loading = true;
 		},
 		loadSongsDone: (state, actions: PayloadAction<SongResponse[]>) => {

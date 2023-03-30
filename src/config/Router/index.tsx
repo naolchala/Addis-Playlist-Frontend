@@ -1,16 +1,14 @@
-import { AddSong } from "$pages/dashboard/AddSong";
-import { CreatePlaylist } from "$pages/dashboard/CreatePlaylist";
-import { DashboardLayout } from "$pages/dashboard/DashboardLayout";
-import { EditPlaylist } from "$pages/dashboard/EditPlaylist";
-import { EditSong } from "$pages/dashboard/EditSong";
-import { HomeDashboard } from "$pages/dashboard/Home";
-import { PlaylistPage } from "$pages/dashboard/PlaylistPage";
-import { PublicDashboard } from "$pages/dashboard/PublicPlaylists";
-import { SharedDashboard } from "$pages/dashboard/SharedPlaylists";
-import { LandingPage } from "$pages/LandingPage";
-import { LoginPage } from "$pages/Login";
+import { LoginPage } from "$pages/Auth/Login";
+import { Register } from "$pages/Auth/Register";
+import { DashboardLayout } from "$pages/Dashboard/DashboardLayout";
+import { AddSong } from "$pages/Dashboard/pages/AddSong/AddSong";
+import { CreatePlaylist } from "$pages/Dashboard/pages/CreatePlaylist/CreatePlaylist";
+import { HomeDashboard } from "$pages/Dashboard/pages/Home";
+import { PlaylistPage } from "$pages/Dashboard/pages/PlaylistPage/Playlist-Page";
+import { PublicDashboard } from "$pages/Dashboard/pages/Public-Playlists";
+import { SharedDashboard } from "$pages/Dashboard/pages/Shared-Playlists";
+import { LandingPage } from "$pages/LandingPage/LandingPage";
 import { Logout } from "$pages/Logout";
-import { Register } from "$pages/Register";
 import { createBrowserRouter } from "react-router-dom";
 
 export const routerConfig = createBrowserRouter([
@@ -60,11 +58,11 @@ export const routerConfig = createBrowserRouter([
 			},
 			{
 				path: "/dashboard/playlist/edit/:id",
-				element: <EditPlaylist />,
+				element: <CreatePlaylist isEdit />,
 			},
 			{
 				path: "/dashboard/playlist/edit-song/:id",
-				element: <EditSong />,
+				element: <AddSong isEdit />,
 			},
 		],
 	},

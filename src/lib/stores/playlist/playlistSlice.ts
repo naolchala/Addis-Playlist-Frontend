@@ -29,13 +29,14 @@ const PlaylistSlice = createSlice({
 	reducers: {
 		setType: (state, action: PayloadAction<PlaylistType>) => {
 			state.type = action.payload;
-			state.playlists = [];
 		},
 		setKeyword: (state, action: PayloadAction<string>) => {
 			state.keyword = action.payload;
 		},
 		searchRequested: (state, action: PayloadAction<SearchParameters>) => {
 			state.loading = true;
+			state.playlists = [];
+			state.error = undefined;
 		},
 		searchDone: (state, action: PayloadAction<PlaylistResponse[]>) => {
 			state.loading = false;
@@ -47,7 +48,7 @@ const PlaylistSlice = createSlice({
 		},
 		setCurrentPlaylist: (
 			state,
-			action: PayloadAction<PlaylistResponse>
+			action: PayloadAction<PlaylistResponse | undefined>
 		) => {
 			state.currentPlaylist = action.payload;
 		},

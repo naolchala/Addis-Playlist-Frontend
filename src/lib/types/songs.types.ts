@@ -9,3 +9,12 @@ export interface SongResponse {
 	addedAt: string;
 	playlistID: string;
 }
+
+export interface DeezerSongResponse {
+	title: string;
+	duration: number;
+	deezerURL: string;
+	album: string;
+	artist: string;
+	cover: string;
+}

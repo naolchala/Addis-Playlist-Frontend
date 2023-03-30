@@ -4,10 +4,10 @@ import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import { ReactNode, useState } from "react";
 
-interface IDialog {
+export interface IDialog {
 	isOpen: boolean;
 	onClose: () => void;
-	children: ReactNode;
+	children?: ReactNode;
 }
 export const Dialog = ({ children, isOpen, onClose }: IDialog) => {
 	if (!isOpen) {
