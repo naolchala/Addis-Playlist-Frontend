@@ -9,7 +9,12 @@ import { playlistSchema } from "$pages/Dashboard/utils/validation-schema";
 import { useAppDispatch, useAppSelector } from "$stores/hooks";
 import { DashboardPage } from "$pages/Dashboard/Dashboard.styles";
 import { useEffect } from "react";
-import { setCurrentPlaylist } from "$stores/playlist/playlistSlice";
+import {
+	addPlaylistRequest,
+	editPlaylistRequest,
+	setCurrentPlaylist,
+} from "$stores/playlist/playlistSlice";
+import { Visibility } from "$types/playlist.types";
 
 interface CreatePlaylistType {
 	isEdit?: boolean;
@@ -17,17 +22,41 @@ interface CreatePlaylistType {
 
 export const CreatePlaylist = ({ isEdit }: CreatePlaylistType) => {
 	const dispatch = useAppDispatch();
-	const { currentPlaylist } = useAppSelector((state) => state.playlist);
+	const { currentPlaylist, loading } = useAppSelector(
+		(state) => state.playlist
+	);
+	const { user } = useAppSelector((state) => state.user);
 
 	const formik = useFormik({
 		initialValues: {
-			label: currentPlaylist?.label || "",
-			desc: currentPlaylist?.desc || "",
-			visibility: currentPlaylist?.visibility || "PRIVATE",
-			playlistArt: currentPlaylist?.playlistArtURL || (undefined as any),
+			label: isEdit ? currentPlaylist?.label || "" : "",
+			desc: isEdit ? currentPlaylist?.desc || "" : "",
+			visibility: isEdit
+				? currentPlaylist?.visibility || "PRIVATE"
+				: ("PRIVATE" as Visibility),
+			playlistArt: isEdit
+				? currentPlaylist?.playlistArtURL || ""
+				: (undefined as any),
 		},
 		validationSchema: playlistSchema,
-		onSubmit: (values, actions) => {},
+		onSubmit: (values, actions) => {
+			if (!isEdit) {
+				dispatch(
+					addPlaylistRequest({
+						token: user?.token || "",
+						playlist: values,
+					})
+				);
+			} else {
+				dispatch(
+					editPlaylistRequest({
+						token: user?.token || "",
+						playlist: values,
+						playlistID: currentPlaylist?.id || "",
+					})
+				);
+			}
+		},
 	});
 
 	useEffect(() => {
@@ -87,6 +116,7 @@ export const CreatePlaylist = ({ isEdit }: CreatePlaylistType) => {
 							<PlaylistArtField
 								name="playlistArt"
 								formik={formik}
+								disabled={isEdit}
 							/>
 						</Flex>
 					</Flex>
@@ -99,6 +129,7 @@ export const CreatePlaylist = ({ isEdit }: CreatePlaylistType) => {
 							shape="round"
 							glow
 							leftIcon={isEdit ? <BiSave /> : <BiAddToQueue />}
+							isLoading={loading}
 						>
 							{isEdit ? "Save" : "Create"} Playlist
 						</Button>

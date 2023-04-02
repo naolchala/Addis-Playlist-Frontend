@@ -28,6 +28,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ShareDialog } from "./components/ShareDialog";
 import { SongsContainer } from "./components/SongContainer";
 import { DashboardPage } from "$pages/Dashboard/Dashboard.styles";
+import { removePlaylistRequest } from "$stores/playlist/playlistSlice";
 
 export const PlaylistPage = () => {
 	const dispatch = useAppDispatch();
@@ -46,7 +47,16 @@ export const PlaylistPage = () => {
 				token: user?.token || "",
 			})
 		);
-	}, [currentPlaylist?.id]);
+	}, [currentPlaylist?.id, user?.token]);
+
+	const removePlaylist = () => {
+		dispatch(
+			removePlaylistRequest({
+				token: user?.token || "",
+				playlistID: currentPlaylist?.id || "",
+			})
+		);
+	};
 
 	return (
 		<DashboardPage>
@@ -111,7 +121,7 @@ export const PlaylistPage = () => {
 											</MenuItemIcon>
 											Edit Playlist
 										</MenuItem>
-										<MenuItem>
+										<MenuItem onClick={removePlaylist}>
 											<MenuItemIcon>
 												<BiTrash />
 											</MenuItemIcon>

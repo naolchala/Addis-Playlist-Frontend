@@ -10,6 +10,7 @@ import { FileUploadImage, FileUploadLabel } from "../CreatePlaylist.styles";
 interface IOtherFormType {
 	name: string;
 	formik: FormikContextType<IPlaylistFormik>;
+	disabled?: boolean;
 }
 
 export const VisibilityField: FC<IOtherFormType> = ({ name, formik }) => {
@@ -40,7 +41,11 @@ export const VisibilityField: FC<IOtherFormType> = ({ name, formik }) => {
 	);
 };
 
-export const PlaylistArtField: FC<IOtherFormType> = ({ name, formik }) => {
+export const PlaylistArtField: FC<IOtherFormType> = ({
+	name,
+	formik,
+	disabled,
+}) => {
 	const [file, setFile] = useState(null as any);
 	return (
 		<FormField>
@@ -62,6 +67,7 @@ export const PlaylistArtField: FC<IOtherFormType> = ({ name, formik }) => {
 				)}
 			</FileUploadLabel>
 			<input
+				disabled={disabled}
 				type="file"
 				onChange={(e) => {
 					formik.setFieldValue(

@@ -3,10 +3,16 @@ import sharedUsers from "./playlist/sharedUsersSlice";
 import songSlice from "./playlist/songSlice";
 import playlistSlice from "./playlist/playlistSlice";
 import userSlice from "./user/userSlice";
+import toastSlice from "./utils/toast";
 import createSagaMiddleware from "@redux-saga/core";
 import { rootSaga } from "./saga";
+import { routerConfig } from "$config/Router";
 
 const sagaMiddleware = createSagaMiddleware();
+
+sagaMiddleware.setContext({
+	router: routerConfig,
+});
 
 const store = configureStore({
 	reducer: {
@@ -14,6 +20,7 @@ const store = configureStore({
 		songs: songSlice,
 		playlist: playlistSlice,
 		user: userSlice,
+		toast: toastSlice,
 	},
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware().concat(sagaMiddleware),

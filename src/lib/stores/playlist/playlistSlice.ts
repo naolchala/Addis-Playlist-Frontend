@@ -1,4 +1,9 @@
-import { SearchParameters } from "$api/playlists";
+import {
+	AddPlaylistParams,
+	DeletePlaylistParams,
+	EditPlaylistParams,
+	SearchParameters,
+} from "$api/playlists";
 import { PlaylistResponse } from "$types/playlist.types";
 import { ErrorResponse } from "$types/user.types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
@@ -52,10 +57,59 @@ const PlaylistSlice = createSlice({
 		) => {
 			state.currentPlaylist = action.payload;
 		},
-		addPlaylist: (state, action: PayloadAction<PlaylistResponse>) => {
-			state.playlists.push(action.payload);
+		addPlaylistRequest: (
+			state,
+			action: PayloadAction<AddPlaylistParams>
+		) => {
+			state.loading = true;
 		},
-		removePlaylist: (state, action: PayloadAction<PlaylistResponse>) => {},
+		addPlaylistDone: (state, action: PayloadAction<PlaylistResponse>) => {
+			state.loading = false;
+			state.playlists.unshift(action.payload);
+			state.error = undefined;
+		},
+		addPlaylistError: (state, action: PayloadAction<ErrorResponse>) => {
+			state.loading = false;
+			state.error = action.payload;
+		},
+		editPlaylistRequest: (
+			state,
+			action: PayloadAction<EditPlaylistParams>
+		) => {
+			state.loading = true;
+		},
+		editPlaylistDone: (state, action: PayloadAction<PlaylistResponse>) => {
+			state.loading = false;
+			state.playlists = state.playlists.map((playlist) =>
+				playlist.id === action.payload.id ? action.payload : playlist
+			);
+			state.error = undefined;
+			state.currentPlaylist = action.payload;
+		},
+		editPlaylistError: (state, action: PayloadAction<ErrorResponse>) => {
+			state.loading = false;
+			state.error = action.payload;
+		},
+		removePlaylistRequest: (
+			state,
+			action: PayloadAction<DeletePlaylistParams>
+		) => {
+			state.loading = true;
+		},
+		removePlaylistDone: (
+			state,
+			action: PayloadAction<PlaylistResponse>
+		) => {
+			state.currentPlaylist = undefined;
+			state.loading = false;
+			state.playlists = state.playlists.filter(
+				(playlist) => playlist.id !== action.payload.id
+			);
+		},
+		removePlaylistError: (state, action: PayloadAction<ErrorResponse>) => {
+			state.loading = false;
+			state.error = action.payload;
+		},
 		resetPlaylist: (state) => {
 			return InitialPlaylistState;
 		},
@@ -69,6 +123,15 @@ export const {
 	setType,
 	resetPlaylist,
 	setCurrentPlaylist,
+	addPlaylistRequest,
+	addPlaylistDone,
+	addPlaylistError,
+	editPlaylistDone,
+	editPlaylistRequest,
+	editPlaylistError,
+	removePlaylistDone,
+	removePlaylistError,
+	removePlaylistRequest,
 } = PlaylistSlice.actions;
 
 export default PlaylistSlice.reducer;

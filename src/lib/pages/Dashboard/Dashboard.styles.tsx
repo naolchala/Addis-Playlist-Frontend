@@ -1,5 +1,6 @@
 import { colors } from "$config/Theme/colors";
 import { fonts } from "$config/Theme/fonts";
+import { mediaQuery } from "$config/Theme/sizes";
 import styled from "@emotion/styled";
 import { FC, ReactNode } from "react";
 import { NavLink } from "react-router-dom";
@@ -10,14 +11,21 @@ export const DashboardContainer = styled.div({
 	display: "flex",
 	gap: "20px",
 });
-export const DashboardSideNav = styled.div({
-	width: "300px",
-	display: "flex",
-	flexDirection: "column",
-	borderRight: "1px solid " + colors.whiteAlpha[50],
-	padding: "20px",
-	gap: "10px",
-});
+export const DashboardSideNav = styled.div(
+	mediaQuery({
+		width: "300px",
+		display: "flex",
+		flexDirection: "column",
+		borderRight: "1px solid " + colors.whiteAlpha[50],
+		padding: "20px",
+		gap: "10px",
+		position: ["fixed", "fixed", "relative"],
+		background: [colors.background, colors.background, "transparent"],
+		height: "100%",
+		zIndex: "9999",
+		left: ["-100%", "-100%", "0"],
+	})
+);
 
 export const SideNavTitle = styled.h1({
 	fontFamily: fonts.header,

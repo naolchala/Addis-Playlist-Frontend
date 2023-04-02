@@ -264,6 +264,16 @@ export const colorSchemes = {
 		color: colors.textColor,
 		hover: colors.orange[400],
 	},
+	red: {
+		background: colors.red[500],
+		color: colors.white,
+		hover: colors.red[800],
+	},
+	green: {
+		background: colors.green[400],
+		color: colors.white,
+		hover: colors.green[800],
+	},
 	default: {
 		background: colors.gray[200],
 		color: colors.background,

@@ -24,6 +24,8 @@ const SongSlice = createSlice({
 			action: PayloadAction<LoadSongsParameters>
 		) => {
 			state.loading = true;
+			state.songs = [];
+			state.error = undefined;
 		},
 		loadSongsDone: (state, actions: PayloadAction<SongResponse[]>) => {
 			state.songs = actions.payload;
@@ -36,6 +38,10 @@ const SongSlice = createSlice({
 		addSongRequested: (state, action) => state,
 		addSongDone(state, action: PayloadAction<SongResponse>) {
 			state.songs.push(action.payload);
+		},
+		addSongError: (state, action: PayloadAction<ErrorResponse>) => {
+			state.error = action.payload;
+			state.loading = false;
 		},
 		setCurrentSong: (
 			state,

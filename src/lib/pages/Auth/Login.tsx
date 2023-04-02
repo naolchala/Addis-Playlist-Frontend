@@ -80,6 +80,7 @@ export const LoginPage = () => {
 								label="Email"
 								formik={formik}
 								type="email"
+								disabled={user.loading}
 							/>
 						</Flex>
 
@@ -89,6 +90,7 @@ export const LoginPage = () => {
 								label="Password"
 								formik={formik}
 								type="password"
+								disabled={user.loading}
 							/>
 						</Flex>
 

@@ -61,6 +61,7 @@ interface IFormikFormField {
 	rows?: number;
 	type?: string;
 	size?: keyof typeof textFieldSizes;
+	disabled?: boolean;
 }
 export const FormikFormField: FC<IFormikFormField> = ({
 	label,
@@ -68,6 +69,7 @@ export const FormikFormField: FC<IFormikFormField> = ({
 	formik,
 	type,
 	size,
+	disabled,
 }) => {
 	return (
 		<FormField>
@@ -78,6 +80,7 @@ export const FormikFormField: FC<IFormikFormField> = ({
 				value={formik.values[name]}
 				onChange={formik.handleChange}
 				inputSize={size}
+				disabled={disabled}
 			></Input>
 			<FormError>
 				{formik.touched[name] ? formik.errors[name] : ""}

@@ -18,6 +18,7 @@ import {
 	BiWorld,
 } from "react-icons/bi";
 import { Outlet, useNavigate } from "react-router-dom";
+import { ToastProvider } from "$components/Layout/Toast/ToastProvider";
 
 export const DashboardLayout = () => {
 	const user = useAppSelector((state) => state.user);
@@ -80,6 +81,7 @@ export const DashboardLayout = () => {
 				<DashboardOutletContainer>
 					<Outlet></Outlet>
 				</DashboardOutletContainer>
+				<ToastProvider />
 			</DashboardContainer>
 		</DashboardBackground>
 	);

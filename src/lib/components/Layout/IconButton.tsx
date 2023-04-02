@@ -7,6 +7,7 @@ interface IconButtonProps {
 	glow?: boolean;
 	colorScheme?: keyof typeof colorSchemes;
 	size?: keyof typeof buttonSizes;
+	isLoading?: boolean;
 }
 
 interface IIconButton

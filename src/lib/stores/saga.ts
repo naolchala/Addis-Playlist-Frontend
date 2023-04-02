@@ -1,7 +1,21 @@
 import { all } from "redux-saga/effects";
-import { watchSearchRequests } from "./playlist/playlistSaga";
+import {
+	watchAddPlaylistRequest,
+	watchDeletePlaylistRequest,
+	watchEditPlaylistRequest,
+	watchSearchRequests,
+} from "./playlist/playlistSaga";
+import { watchLoadSongsRequest } from "./playlist/songSaga";
 import { watchLogin, watchSignup } from "./user/userSaga";
 
 export function* rootSaga() {
-	yield all([watchLogin(), watchSignup(), watchSearchRequests()]);
+	yield all([
+		watchLogin(),
+		watchSignup(),
+		watchSearchRequests(),
+		watchLoadSongsRequest(),
+		watchAddPlaylistRequest(),
+		watchEditPlaylistRequest(),
+		watchDeletePlaylistRequest(),
+	]);
 }
