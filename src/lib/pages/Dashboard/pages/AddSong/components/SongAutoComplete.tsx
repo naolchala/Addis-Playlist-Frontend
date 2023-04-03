@@ -101,7 +101,12 @@ export const SongAutoCompleteField = ({
 										cursor="pointer"
 									>
 										<SongItem
-											{...response}
+											song={{
+												...response,
+												id: "",
+												addedAt: "",
+												playlistID: "",
+											}}
 											suggestion={true}
 										/>
 									</Flex>

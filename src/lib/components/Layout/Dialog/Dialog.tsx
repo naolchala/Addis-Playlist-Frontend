@@ -72,7 +72,8 @@ const DialogContainer = styled.div({
 });
 
 const DialogWindow = styled.div({
-	background: colors.background,
+	background: colors.background + "fa",
+	backdropFilter: "blur(100px)",
 	padding: "20px",
 	borderRadius: "20px",
 	display: "flex",

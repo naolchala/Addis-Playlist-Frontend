@@ -11,5 +11,10 @@ export interface ErrorResponse {
 	msg: string;
 	field?: string;
 }
-
-export interface SharedUsersResponse {}
+export interface SharedUserResponse {
+	id: string;
+	firstName: string;
+	lastName: string;
+	email: string;
+	photoURL: string;
+}

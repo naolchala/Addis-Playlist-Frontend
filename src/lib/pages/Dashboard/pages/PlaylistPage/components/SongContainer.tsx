@@ -32,7 +32,7 @@ export const SongsContainer = () => {
 			{songs.map((song, index) => (
 				<>
 					{index > 0 && <Divider />}
-					<SongItem {...song} key={song.id} />
+					<SongItem song={song} key={song.id} />
 				</>
 			))}
 		</Flex>

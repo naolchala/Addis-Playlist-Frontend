@@ -9,14 +9,28 @@ import {
 } from "$components/Layout/Dialog/Dialog";
 import { Flex } from "$components/Layout/Flex";
 import { FormField, FormLabel, Input } from "$components/Layout/FormField";
-import { useAppSelector } from "$stores/hooks";
+import { useAppDispatch, useAppSelector } from "$stores/hooks";
+import { loadSharedUsersRequested } from "$stores/playlist/sharedUsersSlice";
+import { useEffect } from "react";
 import { BiShareAlt } from "react-icons/bi";
 import { SharedUser, SharedUserLoading } from "./SharedUser";
 
 export const ShareDialog = ({ isOpen, onClose, closeOnOverlay }: IDialog) => {
+	const dispatch = useAppDispatch();
 	const { loading, error, sharedUsers } = useAppSelector(
 		(state) => state.sharedUsers
 	);
+	const { currentPlaylist } = useAppSelector((state) => state.playlist);
+	const { user } = useAppSelector((state) => state.user);
+
+	useEffect(() => {
+		dispatch(
+			loadSharedUsersRequested({
+				token: user?.token || "",
+				playlistID: currentPlaylist?.id || "",
+			})
+		);
+	}, [currentPlaylist?.id]);
 
 	return (
 		<Dialog
@@ -45,28 +59,13 @@ export const ShareDialog = ({ isOpen, onClose, closeOnOverlay }: IDialog) => {
 				<Flex marginTop="20px" direction={"column"}>
 					<FormLabel>Shared With</FormLabel>
 					<Flex direction={"column"} gap="10px">
-						{loading ? (
-							[...Array(3)].map((v, k) => (
-								<SharedUserLoading key={k} />
-							))
-						) : (
-							<>
-								<SharedUser
-									id="123"
-									firstName="Naol"
-									lastName="Chala"
-									email="naolchala6@gmail.com"
-									photoURL="https://api.dicebear.com/5.x/initials/svg?seed=Naol%20Chala"
-								/>
-								<SharedUser
-									id="123"
-									firstName="Naol"
-									lastName="Chala"
-									email="naolchala6@gmail.com"
-									photoURL="https://api.dicebear.com/5.x/initials/svg?seed=Nal%20Chala"
-								/>
-							</>
-						)}
+						{loading.load
+							? [...Array(3)].map((v, k) => (
+									<SharedUserLoading key={k} />
+							  ))
+							: sharedUsers.map((sharedUser) => (
+									<SharedUser {...sharedUser} />
+							  ))}
 					</Flex>
 				</Flex>
 			</DialogContent>

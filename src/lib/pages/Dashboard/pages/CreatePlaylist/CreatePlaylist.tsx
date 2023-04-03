@@ -63,7 +63,7 @@ export const CreatePlaylist = ({ isEdit }: CreatePlaylistType) => {
 		if (!isEdit) {
 			dispatch(setCurrentPlaylist(undefined));
 		}
-	}, []);
+	}, [isEdit]);
 
 	return (
 		<DashboardPage>

@@ -11,6 +11,7 @@ export interface SongResponse {
 }
 
 export interface DeezerSongResponse {
+	id?: "";
 	title: string;
 	duration: number;
 	deezerURL: string;

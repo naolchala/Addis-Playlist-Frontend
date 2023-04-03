@@ -1,4 +1,9 @@
-import SongsAPI, { AddSongParams, LoadSongsParameters } from "$api/songs";
+import SongsAPI, {
+	AddSongParams,
+	DeleteSongParams,
+	EditSongParams,
+	LoadSongsParameters,
+} from "$api/songs";
 import toast, { addToast } from "$stores/utils/toast";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
@@ -13,6 +18,8 @@ import {
 import {
 	addSongDone,
 	addSongError,
+	deleteSongDone,
+	editSongDone,
 	loadSongsDone,
 	loadSongsError,
 } from "./songSlice";
@@ -72,4 +79,70 @@ function* AddSong(action: PayloadAction<AddSongParams>) {
 
 export function* watchAddSongRequest() {
 	yield takeEvery("song/addSongRequested", AddSong);
+}
+
+function* EditSong(action: PayloadAction<EditSongParams>) {
+	try {
+		const editedSong: SagaReturnType<typeof SongsAPI.editSong> = yield call(
+			SongsAPI.editSong,
+			action.payload
+		);
+
+		yield put(editSongDone(editedSong));
+		yield put(
+			addToast({
+				colorScheme: "green",
+				title: "Song Updated Successfully",
+			})
+		);
+		const router: ReturnType<typeof createBrowserRouter> = yield getContext(
+			"router"
+		);
+
+		router.navigate(-1);
+	} catch (error) {
+		if (error instanceof AxiosError) {
+			yield put(addSongError(error.response?.data));
+			yield put(
+				addToast({
+					title: error.response?.data.msg,
+					colorScheme: "red",
+				})
+			);
+		}
+	}
+}
+
+export function* watchEditSongRequest() {
+	yield takeEvery("song/editSongRequest", EditSong);
+}
+
+function* DeleteSong(action: PayloadAction<DeleteSongParams>) {
+	try {
+		const deletedSong: SagaReturnType<typeof SongsAPI.deleteSong> =
+			yield call(SongsAPI.deleteSong, action.payload);
+
+		yield put(deleteSongDone(deletedSong));
+
+		yield put(
+			addToast({
+				colorScheme: "green",
+				title: "Song Removed Successfully",
+			})
+		);
+	} catch (error) {
+		if (error instanceof AxiosError) {
+			yield put(addSongError(error.response?.data));
+			yield put(
+				addToast({
+					title: error.response?.data.msg,
+					colorScheme: "red",
+				})
+			);
+		}
+	}
+}
+
+export function* watchDeleteSongRequest() {
+	yield takeEvery("song/deleteSongRequest", DeleteSong);
 }

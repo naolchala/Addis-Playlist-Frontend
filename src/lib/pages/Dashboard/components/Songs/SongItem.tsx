@@ -8,6 +8,9 @@ import {
 } from "$components/Layout/Menu/Menu.styles";
 import { Skeleton } from "$components/Layout/Skeleton";
 import { getTimeInMinutes } from "$config/utils/dayjs";
+import { useAppDispatch, useAppSelector } from "$stores/hooks";
+import { deleteSongRequest, setCurrentSong } from "$stores/playlist/songSlice";
+import { SongResponse } from "$types/songs.types";
 import { useState } from "react";
 import {
 	BiMusic,
@@ -26,27 +29,30 @@ import {
 } from "./SongItem.style";
 
 export interface ISongCard {
-	id?: string;
-	title: string;
-	album?: string;
-	artist?: string;
-	duration?: number;
-	releaseYear?: number;
-	deezerURL?: string;
-	addedAt?: string;
-	playlistID?: string;
+	song: SongResponse;
 	suggestion?: boolean;
 	cover?: string;
 }
 
-export const SongItem = (props: ISongCard) => {
+export const SongItem = ({ song, cover, suggestion }: ISongCard) => {
+	const { user } = useAppSelector((state) => state.user);
 	const [isOpen, setOpen] = useState(false);
 	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
+
+	const remove = () => {
+		dispatch(
+			deleteSongRequest({
+				id: song.id || "",
+				token: user?.token || "",
+			})
+		);
+	};
 
 	return (
 		<SongCardContainer>
-			{props.cover ? (
-				<SongArtImage src={props.cover}></SongArtImage>
+			{cover ? (
+				<SongArtImage src={cover}></SongArtImage>
 			) : (
 				<SongArtContainer>
 					<BiMusic></BiMusic>
@@ -55,56 +61,57 @@ export const SongItem = (props: ISongCard) => {
 			<Flex direction={"row"} flex="1" alignItems={"center"} gap="3px">
 				<Flex direction={"column"} flex="3">
 					<SongTitle
-						href={props.suggestion ? undefined : props.deezerURL}
+						href={suggestion ? undefined : song.deezerURL}
 						target="_blank"
 					>
-						{props.title.length > 40
-							? props.title.slice(0, 40) + "..."
-							: props.title}
+						{song.title.length > 40
+							? song.title.slice(0, 40) + "..."
+							: song.title}
 					</SongTitle>
-					<SongArtist>{props.artist}</SongArtist>
+					<SongArtist>{song.artist}</SongArtist>
 				</Flex>
 
 				<Flex direction={"column"} flex="2">
 					<small>Album</small>
 					<SongProperty>
-						{props.album && props.album.length > 40
-							? props.album.slice(0, 40) + "..."
-							: props.album}
+						{song.album && song.album.length > 40
+							? song.album.slice(0, 40) + "..."
+							: song.album}
 					</SongProperty>
 				</Flex>
 
 				<Flex direction={"column"} flex="1">
 					<small>Duration</small>
 					<SongProperty>
-						{getTimeInMinutes(props?.duration || 0)}
+						{getTimeInMinutes(song?.duration || 0)}
 					</SongProperty>
 				</Flex>
-				{props.releaseYear && (
+				{song.releaseYear && (
 					<Flex direction={"column"} flex="1">
 						<small>Year</small>
-						<SongProperty>{props.releaseYear}</SongProperty>
+						<SongProperty>{song.releaseYear}</SongProperty>
 					</Flex>
 				)}
-				{!props.suggestion && (
+				{!suggestion && (
 					<Flex>
 						<Menu
 							isOpen={isOpen}
 							menuContent={
 								<MenuContent>
 									<MenuItem
-										onClick={() =>
+										onClick={() => {
+											dispatch(setCurrentSong(song));
 											navigate(
-												`/dashboard/playlist/edit-song/${props.id}`
-											)
-										}
+												`/dashboard/playlist/edit-song/${song.id}`
+											);
+										}}
 									>
 										<MenuItemIcon>
 											<BiEditAlt />
 										</MenuItemIcon>
 										Edit Song
 									</MenuItem>
-									<MenuItem>
+									<MenuItem onClick={remove}>
 										<MenuItemIcon>
 											<BiTrash />
 										</MenuItemIcon>

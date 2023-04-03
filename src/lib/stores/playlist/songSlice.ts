@@ -1,9 +1,16 @@
-import { AddSongParams, LoadSongsParameters } from "$api/songs";
+import { DeletePlaylistParams } from "$api/playlists";
+import {
+	AddSongParams,
+	DeleteSongParams,
+	EditSongParams,
+	LoadSongsParameters,
+} from "$api/songs";
 import { SongResponse } from "$types/songs.types";
 import { ErrorResponse } from "$types/user.types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface SongStateType {
+	deleting: boolean;
 	loading: boolean;
 	songs: SongResponse[];
 	error?: ErrorResponse;
@@ -11,6 +18,7 @@ export interface SongStateType {
 }
 
 const InitialSongState: SongStateType = {
+	deleting: false,
 	loading: false,
 	songs: [],
 };
@@ -47,6 +55,24 @@ const SongSlice = createSlice({
 			state.error = action.payload;
 			state.loading = false;
 		},
+		editSongRequest: (state, action: PayloadAction<EditSongParams>) => {
+			state.loading = true;
+		},
+		editSongDone: (state, action: PayloadAction<SongResponse>) => {
+			state.loading = false;
+			state.songs = state.songs.map((song) =>
+				song.id === action.payload.id ? action.payload : song
+			);
+		},
+		deleteSongRequest: (state, action: PayloadAction<DeleteSongParams>) => {
+			state.deleting = true;
+		},
+		deleteSongDone: (state, action: PayloadAction<SongResponse>) => {
+			state.deleting = false;
+			state.songs = state.songs.filter(
+				(song) => song.id != action.payload.id
+			);
+		},
 		setCurrentSong: (
 			state,
 			actions: PayloadAction<SongResponse | undefined>
@@ -63,6 +89,10 @@ export const {
 	addSongRequested,
 	addSongDone,
 	addSongError,
+	editSongRequest,
+	editSongDone,
+	deleteSongDone,
+	deleteSongRequest,
 	setCurrentSong,
 } = SongSlice.actions;
 export default SongSlice.reducer;

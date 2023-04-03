@@ -47,5 +47,42 @@ const addSong = async (params: AddSongParams) => {
 	return newSong;
 };
 
-const SongsAPI = { loadSongs, searchAutocomplete, addSong };
+export interface EditSongParams extends Omit<AddSongParams, "playlistID"> {
+	songID: string;
+}
+
+const editSong = async (params: EditSongParams) => {
+	const { token, songID, song } = params;
+	const editedSong = await axios
+		.post<SongResponse>(
+			apiUrl + "/songs/update",
+			{ id: songID, ...song },
+			authHeader(token)
+		)
+		.then((res) => res.data);
+	return editedSong;
+};
+
+export interface DeleteSongParams {
+	token: string;
+	id: string;
+}
+const deleteSong = async (params: DeleteSongParams) => {
+	const deletedSong = await axios
+		.post<SongResponse>(
+			apiUrl + "/songs/delete",
+			{ id: params.id },
+			authHeader(params.token)
+		)
+		.then((res) => res.data);
+	return deletedSong;
+};
+
+const SongsAPI = {
+	loadSongs,
+	searchAutocomplete,
+	addSong,
+	editSong,
+	deleteSong,
+};
 export default SongsAPI;

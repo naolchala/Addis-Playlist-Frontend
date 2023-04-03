@@ -6,7 +6,13 @@ import {
 	watchSearchRequests,
 } from "./playlist/playlistSaga";
 import {
+	watchAddSharedRequest,
+	watchLoadSharedRequest,
+} from "./playlist/sharedUsersSaga";
+import {
 	watchAddSongRequest,
+	watchDeleteSongRequest,
+	watchEditSongRequest,
 	watchLoadSongsRequest,
 } from "./playlist/songSaga";
 import { watchLogin, watchSignup } from "./user/userSaga";
@@ -21,5 +27,9 @@ export function* rootSaga() {
 		watchEditPlaylistRequest(),
 		watchDeletePlaylistRequest(),
 		watchAddSongRequest(),
+		watchEditSongRequest(),
+		watchDeleteSongRequest(),
+		watchAddSharedRequest(),
+		watchLoadSharedRequest(),
 	]);
 }

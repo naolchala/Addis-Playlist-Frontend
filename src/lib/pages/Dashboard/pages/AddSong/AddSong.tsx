@@ -7,7 +7,7 @@ import {
 	songSchema,
 } from "$pages/Dashboard/utils/validation-schema";
 import { useAppDispatch, useAppSelector } from "$stores/hooks";
-import { addSongRequested } from "$stores/playlist/songSlice";
+import { addSongRequested, editSongRequest } from "$stores/playlist/songSlice";
 import { useFormik } from "formik";
 import { BiMusic } from "react-icons/bi";
 import { useNavigate, useParams } from "react-router-dom";
@@ -45,6 +45,14 @@ export const AddSong = ({ isEdit }: IAddSongs) => {
 					addSongRequested({
 						token: user?.token || "",
 						playlistID: currentPlaylist?.id || "",
+						song: values,
+					})
+				);
+			} else {
+				dispatch(
+					editSongRequest({
+						token: user?.token || "",
+						songID: currentSong?.id || "",
 						song: values,
 					})
 				);
