@@ -8,15 +8,21 @@ export interface IDialog {
 	isOpen: boolean;
 	onClose: () => void;
 	children?: ReactNode;
+	closeOnOverlay?: boolean;
 }
-export const Dialog = ({ children, isOpen, onClose }: IDialog) => {
+export const Dialog = ({
+	children,
+	isOpen,
+	onClose,
+	closeOnOverlay,
+}: IDialog) => {
 	if (!isOpen) {
 		return <></>;
 	}
 
 	return (
 		<DialogContainer>
-			<DialogOverlay onClick={onClose} />
+			<DialogOverlay onClick={closeOnOverlay ? onClose : () => {}} />
 			<DialogWindow>{children}</DialogWindow>
 		</DialogContainer>
 	);

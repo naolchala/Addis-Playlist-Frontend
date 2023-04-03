@@ -13,13 +13,17 @@ import { useAppSelector } from "$stores/hooks";
 import { BiShareAlt } from "react-icons/bi";
 import { SharedUser, SharedUserLoading } from "./SharedUser";
 
-export const ShareDialog = ({ isOpen, onClose }: IDialog) => {
+export const ShareDialog = ({ isOpen, onClose, closeOnOverlay }: IDialog) => {
 	const { loading, error, sharedUsers } = useAppSelector(
 		(state) => state.sharedUsers
 	);
 
 	return (
-		<Dialog isOpen={isOpen} onClose={onClose}>
+		<Dialog
+			isOpen={isOpen}
+			onClose={onClose}
+			closeOnOverlay={closeOnOverlay}
+		>
 			<DialogHeader>
 				<DialogTitle>Share Playlist</DialogTitle>
 			</DialogHeader>

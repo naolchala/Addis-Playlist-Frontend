@@ -29,6 +29,7 @@ import { ShareDialog } from "./components/ShareDialog";
 import { SongsContainer } from "./components/SongContainer";
 import { DashboardPage } from "$pages/Dashboard/Dashboard.styles";
 import { removePlaylistRequest } from "$stores/playlist/playlistSlice";
+import { LoadingDialog } from "./components/LoadingDialog";
 
 export const PlaylistPage = () => {
 	const dispatch = useAppDispatch();
@@ -39,6 +40,11 @@ export const PlaylistPage = () => {
 	const { onClose, onOpen, isOpen } = useDialog(false);
 	const { currentPlaylist } = useAppSelector((state) => state.playlist);
 	const { user } = useAppSelector((state) => state.user);
+	const {
+		onClose: deletingOnClose,
+		isOpen: deletingIsOpen,
+		onOpen: deletingOnOpen,
+	} = useDialog(false);
 
 	useEffect(() => {
 		dispatch(
@@ -50,6 +56,7 @@ export const PlaylistPage = () => {
 	}, [currentPlaylist?.id, user?.token]);
 
 	const removePlaylist = () => {
+		deletingOnOpen();
 		dispatch(
 			removePlaylistRequest({
 				token: user?.token || "",
@@ -60,7 +67,12 @@ export const PlaylistPage = () => {
 
 	return (
 		<DashboardPage>
-			<ShareDialog isOpen={isOpen} onClose={onClose} />
+			<LoadingDialog isOpen={deletingIsOpen} onClose={deletingOnClose} />
+			<ShareDialog
+				isOpen={isOpen}
+				onClose={onClose}
+				closeOnOverlay={true}
+			/>
 			<Flex direction="row" gap={"40px"}>
 				<Flex height={"100%"} width="250px">
 					<PlaylistImage src={currentPlaylist?.playlistArtURL} />

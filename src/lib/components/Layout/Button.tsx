@@ -98,13 +98,13 @@ const ButtonContentWrapper = styled.div((props: { isLoading?: boolean }) => ({
 	},
 }));
 
-const spin = keyframes`
+export const spin = keyframes`
 	from {
-		transform: rotate(0deg);
+		transform: rotate(0deg) ; 
 	}
 
 	to {
-		transform: rotate(360deg);
+		transform: rotate(360deg) ;
 	}
 `;
 
