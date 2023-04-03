@@ -23,11 +23,15 @@ import {
 
 interface ISongAutoCompleteField {
 	formik: FormikContextType<IFormikSong>;
+	disabled?: boolean;
 }
 
 let timeToSearch: NodeJS.Timeout;
 
-export const SongAutoCompleteField = ({ formik }: ISongAutoCompleteField) => {
+export const SongAutoCompleteField = ({
+	formik,
+	disabled,
+}: ISongAutoCompleteField) => {
 	const [isLoading, setLoading] = useState(false);
 	const [data, setData] = useState([] as DeezerSongResponse[]);
 	const [showAutoComplete, setShowAutoComplete] = useState(false);
@@ -81,6 +85,7 @@ export const SongAutoCompleteField = ({ formik }: ISongAutoCompleteField) => {
 					value={formik.values.title}
 					onChange={formik.handleChange}
 					onFocus={() => setShowAutoComplete(true)}
+					disabled={disabled}
 				></Input>
 				<Flex position="relative">
 					{showAutoComplete && (

@@ -58,14 +58,20 @@ export const SongItem = (props: ISongCard) => {
 						href={props.suggestion ? undefined : props.deezerURL}
 						target="_blank"
 					>
-						{props.title}
+						{props.title.length > 40
+							? props.title.slice(0, 40) + "..."
+							: props.title}
 					</SongTitle>
 					<SongArtist>{props.artist}</SongArtist>
 				</Flex>
 
 				<Flex direction={"column"} flex="2">
 					<small>Album</small>
-					<SongProperty>{props.album}</SongProperty>
+					<SongProperty>
+						{props.album && props.album.length > 40
+							? props.album.slice(0, 40) + "..."
+							: props.album}
+					</SongProperty>
 				</Flex>
 
 				<Flex direction={"column"} flex="1">

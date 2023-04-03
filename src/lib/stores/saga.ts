@@ -5,7 +5,10 @@ import {
 	watchEditPlaylistRequest,
 	watchSearchRequests,
 } from "./playlist/playlistSaga";
-import { watchLoadSongsRequest } from "./playlist/songSaga";
+import {
+	watchAddSongRequest,
+	watchLoadSongsRequest,
+} from "./playlist/songSaga";
 import { watchLogin, watchSignup } from "./user/userSaga";
 
 export function* rootSaga() {
@@ -17,5 +20,6 @@ export function* rootSaga() {
 		watchAddPlaylistRequest(),
 		watchEditPlaylistRequest(),
 		watchDeletePlaylistRequest(),
+		watchAddSongRequest(),
 	]);
 }

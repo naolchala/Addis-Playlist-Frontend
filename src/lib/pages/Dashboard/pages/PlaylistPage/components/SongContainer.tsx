@@ -29,10 +29,10 @@ export const SongsContainer = () => {
 
 	return (
 		<Flex direction={"column"} marginTop="15px" gap="20px">
-			{songs.map((song) => (
+			{songs.map((song, index) => (
 				<>
+					{index > 0 && <Divider />}
 					<SongItem {...song} key={song.id} />
-					<Divider />
 				</>
 			))}
 		</Flex>

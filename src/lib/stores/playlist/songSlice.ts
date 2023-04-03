@@ -1,4 +1,4 @@
-import { LoadSongsParameters } from "$api/songs";
+import { AddSongParams, LoadSongsParameters } from "$api/songs";
 import { SongResponse } from "$types/songs.types";
 import { ErrorResponse } from "$types/user.types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
@@ -33,11 +33,15 @@ const SongSlice = createSlice({
 		},
 		loadSongsError: (state, actions: PayloadAction<ErrorResponse>) => {
 			state.error = actions.payload;
+			state.loading = false;
+		},
+		addSongRequested: (state, action: PayloadAction<AddSongParams>) => {
 			state.loading = true;
 		},
-		addSongRequested: (state, action) => state,
 		addSongDone(state, action: PayloadAction<SongResponse>) {
 			state.songs.push(action.payload);
+			state.loading = false;
+			state.error = undefined;
 		},
 		addSongError: (state, action: PayloadAction<ErrorResponse>) => {
 			state.error = action.payload;
@@ -56,6 +60,9 @@ export const {
 	loadSongsDone,
 	loadSongsError,
 	loadSongsRequested,
+	addSongRequested,
+	addSongDone,
+	addSongError,
 	setCurrentSong,
 } = SongSlice.actions;
 export default SongSlice.reducer;
