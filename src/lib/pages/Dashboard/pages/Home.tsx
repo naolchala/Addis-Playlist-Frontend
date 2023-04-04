@@ -1,5 +1,10 @@
 import { Flex } from "$components/Layout/Flex";
-import { SearchField, SectionSubtitle, SectionTitle } from "./Home.style";
+import {
+	HeaderContainer,
+	SearchField,
+	SectionSubtitle,
+	SectionTitle,
+} from "./Home.style";
 import { useAppDispatch } from "$stores/hooks";
 import { setType } from "$stores/playlist/playlistSlice";
 import { useEffect } from "react";
@@ -17,12 +22,7 @@ export const HomeDashboard = () => {
 		<DashboardPage>
 			<Flex alignSelf={"flex-end"}></Flex>
 			<section>
-				<Flex
-					direction={["column", "row"]}
-					alignItems="center"
-					gap="20px"
-					marginBottom={"30px"}
-				>
+				<HeaderContainer>
 					<Flex direction="column" gap={"5px"}>
 						<SectionTitle>Your Playlists</SectionTitle>
 						<SectionSubtitle>
@@ -30,7 +30,7 @@ export const HomeDashboard = () => {
 						</SectionSubtitle>
 					</Flex>
 					<SearchField />
-				</Flex>
+				</HeaderContainer>
 				<PlaylistsContainer />
 			</section>
 		</DashboardPage>

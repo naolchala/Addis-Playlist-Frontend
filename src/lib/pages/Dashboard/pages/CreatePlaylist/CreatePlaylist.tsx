@@ -83,7 +83,7 @@ export const CreatePlaylist = ({ isEdit }: CreatePlaylistType) => {
 					direction={["column", "column", "row"]}
 					marginTop="40px"
 					gap={"40px"}
-					alignItems={"flex-start"}
+					// alignItems={"flex-start"}
 				>
 					<Flex gap="20px" direction={"column"} flex="2">
 						<FormikFormField

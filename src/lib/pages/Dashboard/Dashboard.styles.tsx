@@ -104,5 +104,6 @@ export const DashboardPage = styled.div(
 		display: "flex",
 		flexDirection: "column",
 		padding: ["20px", "20px", "40px"],
+		paddingBottom: ["100px", "100px", "40px"],
 	})
 );

@@ -1,20 +1,24 @@
 import { colors } from "$config/Theme/colors";
 import { fonts } from "$config/Theme/fonts";
+import { mediaQuery } from "$config/Theme/sizes";
 import styled from "@emotion/styled";
 
-export const SongCardContainer = styled.div({
-	display: "flex",
-	width: "100%",
-	alignItems: "center",
-	color: "white",
-	padding: "10px",
-	borderRadius: "4px",
-	transition: "all 300ms ease-out",
+export const SongCardContainer = styled.div(
+	mediaQuery({
+		display: "flex",
+		minWidth: "700px",
+		width: "100%",
+		alignItems: "center",
+		color: "white",
+		padding: "10px",
+		borderRadius: "4px",
+		transition: "all 300ms ease-out",
 
-	":hover": {
-		background: colors.whiteAlpha[100],
-	},
-});
+		":hover": {
+			background: colors.whiteAlpha[100],
+		},
+	})
+);
 export const SongArtContainer = styled.div({
 	borderRadius: "4px",
 	border: "2px solid " + colors.blue[800],

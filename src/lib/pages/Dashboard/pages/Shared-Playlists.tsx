@@ -1,5 +1,10 @@
 import { Flex } from "$components/Layout/Flex";
-import { SearchField, SectionSubtitle, SectionTitle } from "./Home.style";
+import {
+	HeaderContainer,
+	SearchField,
+	SectionSubtitle,
+	SectionTitle,
+} from "./Home.style";
 import { useAppDispatch } from "$stores/hooks";
 import { setType } from "$stores/playlist/playlistSlice";
 import { useEffect } from "react";
@@ -17,11 +22,7 @@ export const SharedDashboard = () => {
 		<DashboardPage>
 			<Flex alignSelf={"flex-end"}></Flex>
 			<section>
-				<Flex
-					justifyContent={"space-between"}
-					alignItems="center"
-					marginBottom={"30px"}
-				>
+				<HeaderContainer>
 					<Flex direction="column" gap={"5px"}>
 						<SectionTitle>Shared with you</SectionTitle>
 						<SectionSubtitle>
@@ -29,7 +30,7 @@ export const SharedDashboard = () => {
 						</SectionSubtitle>
 					</Flex>
 					<SearchField />
-				</Flex>
+				</HeaderContainer>
 				<PlaylistsContainer />
 			</section>
 		</DashboardPage>

@@ -47,12 +47,14 @@ export const PlaylistPage = () => {
 	} = useDialog(false);
 
 	useEffect(() => {
-		dispatch(
-			loadSongsRequested({
-				playlistID: currentPlaylist?.id || "",
-				token: user?.token || "",
-			})
-		);
+		if (user && currentPlaylist) {
+			dispatch(
+				loadSongsRequested({
+					playlistID: currentPlaylist?.id || "",
+					token: user?.token || "",
+				})
+			);
+		}
 	}, [currentPlaylist?.id, user?.token]);
 
 	const removePlaylist = () => {
@@ -73,8 +75,13 @@ export const PlaylistPage = () => {
 				onClose={onClose}
 				closeOnOverlay={true}
 			/>
-			<Flex direction="row" gap={"40px"}>
-				<Flex height={"100%"} width="250px">
+			<Flex direction={["column", "column", "row"]} gap={"40px"}>
+				<Flex
+					height={"100%"}
+					width="250px"
+					alignItems={"center"}
+					justifyContent="center"
+				>
 					<PlaylistImage src={currentPlaylist?.playlistArtURL} />
 				</Flex>
 				<Flex flex={"1"} direction="column">
@@ -95,61 +102,65 @@ export const PlaylistPage = () => {
 					<PlaylistDescription>
 						{currentPlaylist?.desc}
 					</PlaylistDescription>
-					<Flex direction={"row"} gap="20px">
-						<Button
-							onClick={() =>
-								navigate(`/dashboard/playlist/add-song/${id}`)
-							}
-							colorScheme="yellow"
-							shape="round"
-							leftIcon={<BiPlusCircle />}
-							glow
-						>
-							Add music
-						</Button>
-						<Button
-							colorScheme="whiteAlpha"
-							shape="round"
-							leftIcon={<BiShareAlt />}
-							onClick={onOpen}
-						>
-							Share playlist
-						</Button>
-						{currentPlaylist?.userID === user?.id && (
-							<Menu
-								isOpen={isMenu}
-								menuContent={
-									<MenuContent>
-										<MenuItem
-											onClick={() =>
-												navigate(
-													"/dashboard/playlist/edit/" +
-														id
-												)
-											}
-										>
-											<MenuItemIcon>
-												<BiEditAlt />
-											</MenuItemIcon>
-											Edit Playlist
-										</MenuItem>
-										<MenuItem onClick={removePlaylist}>
-											<MenuItemIcon>
-												<BiTrash />
-											</MenuItemIcon>
-											Delete Playlist
-										</MenuItem>
-									</MenuContent>
+					{currentPlaylist?.userID === user?.id && (
+						<Flex direction={["column", "row"]} gap="20px">
+							<Button
+								onClick={() =>
+									navigate(
+										`/dashboard/playlist/add-song/${id}`
+									)
 								}
+								colorScheme="yellow"
+								shape="round"
+								leftIcon={<BiPlusCircle />}
+								glow
 							>
-								<IconButton
-									icon={<BiDotsVerticalRounded />}
-									size="xl"
-									onClick={() => setMenu((val) => !val)}
-								></IconButton>
-							</Menu>
-						)}
-					</Flex>
+								Add music
+							</Button>
+							<Flex alignItems="center" gap="10px">
+								<Button
+									colorScheme="whiteAlpha"
+									shape="round"
+									leftIcon={<BiShareAlt />}
+									onClick={onOpen}
+								>
+									Share playlist
+								</Button>
+								<Menu
+									isOpen={isMenu}
+									menuContent={
+										<MenuContent>
+											<MenuItem
+												onClick={() =>
+													navigate(
+														"/dashboard/playlist/edit/" +
+															id
+													)
+												}
+											>
+												<MenuItemIcon>
+													<BiEditAlt />
+												</MenuItemIcon>
+												Edit Playlist
+											</MenuItem>
+											<MenuItem onClick={removePlaylist}>
+												<MenuItemIcon>
+													<BiTrash />
+												</MenuItemIcon>
+												Delete Playlist
+											</MenuItem>
+										</MenuContent>
+									}
+								>
+									<IconButton
+										icon={<BiDotsVerticalRounded />}
+										size="xl"
+										onClick={() => setMenu((val) => !val)}
+									></IconButton>
+								</Menu>
+							</Flex>
+						</Flex>
+					)}
 				</Flex>
 			</Flex>
 			<Flex direction={"column"} marginTop="40px">

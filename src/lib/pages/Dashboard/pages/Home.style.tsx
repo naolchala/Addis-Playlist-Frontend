@@ -1,5 +1,6 @@
 import { colors } from "$config/Theme/colors";
 import { fonts } from "$config/Theme/fonts";
+import { mediaQuery } from "$config/Theme/sizes";
 import { useAppDispatch } from "$stores/hooks";
 import { setKeyword } from "$stores/playlist/playlistSlice";
 import styled from "@emotion/styled";
@@ -30,6 +31,7 @@ export const Select = styled.select({
 export const SearchFieldContainer = styled.div({
 	display: "flex",
 	alignItems: "center",
+	alignSelf: "flex-end",
 	padding: "4px",
 	background: colors.whiteAlpha[100],
 	border: "1px solid " + colors.whiteAlpha[200],
@@ -88,6 +90,13 @@ export const SearchField = () => {
 	);
 };
 
-const HeaderContainer = styled.div({
-	display: "flex",
-});
+export const HeaderContainer = styled.div(
+	mediaQuery({
+		display: "flex",
+		alignItems: ["flex-start", "flex-start", "center"],
+		gap: "40px",
+		justifyContent: "space-between",
+		flexDirection: ["column", "column", "row"],
+		marginBottom: "30px",
+	})
+);

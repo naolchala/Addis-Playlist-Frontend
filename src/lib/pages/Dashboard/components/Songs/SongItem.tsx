@@ -65,7 +65,7 @@ export const SongItem = ({ song, cover, suggestion }: ISongCard) => {
 					<BiMusic></BiMusic>
 				</SongArtContainer>
 			)}
-			<Flex direction={"row"} flex="1" alignItems={"center"} gap="3px">
+			<Flex flex="1" alignItems={"center"} gap="3px">
 				<Flex direction={"column"} flex="3">
 					<SongTitle
 						href={suggestion ? undefined : song.deezerURL}

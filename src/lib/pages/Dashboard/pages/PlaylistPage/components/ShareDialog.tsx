@@ -28,12 +28,14 @@ export const ShareDialog = ({ isOpen, onClose, closeOnOverlay }: IDialog) => {
 	const [email, setEmail] = useState("");
 
 	useEffect(() => {
-		dispatch(
-			loadSharedUsersRequested({
-				token: user?.token || "",
-				playlistID: currentPlaylist?.id || "",
-			})
-		);
+		if (user && currentPlaylist) {
+			dispatch(
+				loadSharedUsersRequested({
+					token: user?.token || "",
+					playlistID: currentPlaylist?.id || "",
+				})
+			);
+		}
 	}, [currentPlaylist?.id]);
 
 	const share = () => {

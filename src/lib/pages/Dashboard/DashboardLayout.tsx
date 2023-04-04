@@ -33,13 +33,15 @@ export const DashboardLayout = () => {
 	}, [user.user]);
 
 	useEffect(() => {
-		dispatch(
-			searchRequested({
-				keyword: playlist.keyword,
-				type: playlist.type,
-				token: user.user?.token || "",
-			})
-		);
+		if (user.user) {
+			dispatch(
+				searchRequested({
+					keyword: playlist.keyword,
+					type: playlist.type,
+					token: user.user?.token || "",
+				})
+			);
+		}
 	}, [playlist.type, playlist.keyword]);
 
 	return (

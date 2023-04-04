@@ -1,14 +1,17 @@
 import { colors } from "$config/Theme/colors";
 import { fonts } from "$config/Theme/fonts";
+import { mediaQuery } from "$config/Theme/sizes";
 import { ISongCard } from "$pages/Dashboard/components/Songs/SongItem";
 import styled from "@emotion/styled";
 
-export const PlaylistImage = styled.img({
-	objectFit: "cover",
-	width: "220px",
-	height: "220px",
-	borderRadius: "10px",
-});
+export const PlaylistImage = styled.img(
+	mediaQuery({
+		objectFit: "cover",
+		width: ["100%", "220px"],
+		height: "220px",
+		borderRadius: "10px",
+	})
+);
 export const PlaylistHeader = styled.h1({
 	fontFamily: fonts.body,
 	fontSize: "2.0em",
