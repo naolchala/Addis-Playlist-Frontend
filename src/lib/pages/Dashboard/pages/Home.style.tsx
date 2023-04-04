@@ -1,6 +1,9 @@
 import { colors } from "$config/Theme/colors";
 import { fonts } from "$config/Theme/fonts";
+import { useAppDispatch } from "$stores/hooks";
+import { setKeyword } from "$stores/playlist/playlistSlice";
 import styled from "@emotion/styled";
+import { useState } from "react";
 import { BiSearchAlt } from "react-icons/bi";
 
 export const SectionTitle = styled.h2({
@@ -63,12 +66,28 @@ export const SearchButton = styled.button({
 });
 
 export const SearchField = () => {
+	const [keyword, setCurrentKeyword] = useState("");
+	const dispatch = useAppDispatch();
+
+	const search = () => {
+		dispatch(setKeyword(keyword));
+	};
+
 	return (
 		<SearchFieldContainer>
-			<SearchInput placeholder="Search Playlist"></SearchInput>
-			<SearchButton>
+			<SearchInput
+				placeholder="Search Playlist"
+				value={keyword}
+				onChange={(e) => setCurrentKeyword(e.target.value)}
+				name="keyword"
+			></SearchInput>
+			<SearchButton onClick={search}>
 				<BiSearchAlt />
 			</SearchButton>
 		</SearchFieldContainer>
 	);
 };
+
+const HeaderContainer = styled.div({
+	display: "flex",
+});

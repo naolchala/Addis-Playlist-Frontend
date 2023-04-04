@@ -1,12 +1,17 @@
-import SharedAPI, { AddSharedParams, LoadSharedParams } from "$api/sharedUser";
+import SharedAPI, {
+	AddSharedParams,
+	DeleteSharedParams,
+	LoadSharedParams,
+} from "$api/sharedUser";
 import { addToast } from "$stores/utils/toast";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 import { call, put, SagaReturnType, takeEvery } from "redux-saga/effects";
 import {
 	addSharedUserDone,
+	deleteSharedUserDone,
 	loadSharedUsersDone,
-	loadSharedUsersError,
+	sharedUserError,
 } from "./sharedUsersSlice";
 
 function* LoadSharedUsers(action: PayloadAction<LoadSharedParams>) {
@@ -17,7 +22,7 @@ function* LoadSharedUsers(action: PayloadAction<LoadSharedParams>) {
 		yield put(loadSharedUsersDone(sharedUser));
 	} catch (error) {
 		if (error instanceof AxiosError) {
-			yield put(loadSharedUsersError(error.response?.data));
+			yield put(sharedUserError(error.response?.data));
 			yield put(
 				addToast({
 					title: error.response?.data.msg,
@@ -46,7 +51,7 @@ function* AddSharedUser(action: PayloadAction<AddSharedParams>) {
 		);
 	} catch (error) {
 		if (error instanceof AxiosError) {
-			yield put(loadSharedUsersError(error.response?.data));
+			yield put(sharedUserError(error.response?.data));
 			yield put(
 				addToast({
 					title: error.response?.data.msg,
@@ -59,4 +64,33 @@ function* AddSharedUser(action: PayloadAction<AddSharedParams>) {
 
 export function* watchAddSharedRequest() {
 	yield takeEvery("sharedUsers/addSharedUserRequest", AddSharedUser);
+}
+
+function* DeleteSharedUser(action: PayloadAction<DeleteSharedParams>) {
+	try {
+		const deletedUser: SagaReturnType<typeof SharedAPI.deleteSharedUser> =
+			yield call(SharedAPI.deleteSharedUser, action.payload);
+
+		yield put(deleteSharedUserDone(deletedUser));
+		yield put(
+			addToast({
+				title: "Unshared the playlist",
+				colorScheme: "green",
+			})
+		);
+	} catch (error) {
+		if (error instanceof AxiosError) {
+			yield put(sharedUserError(error.response?.data));
+			yield put(
+				addToast({
+					title: error.response?.data.msg,
+					colorScheme: "red",
+				})
+			);
+		}
+	}
+}
+
+export function* watchDeleteSharedUserRequest() {
+	yield takeEvery("sharedUsers/deleteSharedUserRequest", DeleteSharedUser);
 }

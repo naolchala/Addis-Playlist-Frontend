@@ -18,8 +18,9 @@ export const HomeDashboard = () => {
 			<Flex alignSelf={"flex-end"}></Flex>
 			<section>
 				<Flex
-					justifyContent={"space-between"}
+					direction={["column", "row"]}
 					alignItems="center"
+					gap="20px"
 					marginBottom={"30px"}
 				>
 					<Flex direction="column" gap={"5px"}>

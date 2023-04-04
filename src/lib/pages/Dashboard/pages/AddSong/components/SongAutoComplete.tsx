@@ -107,6 +107,7 @@ export const SongAutoCompleteField = ({
 												addedAt: "",
 												playlistID: "",
 											}}
+											cover={response.cover}
 											suggestion={true}
 										/>
 									</Flex>

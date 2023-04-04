@@ -2,6 +2,9 @@ import { colors, colorSchemes } from "$config/Theme/colors";
 import { buttonSizes } from "$config/Theme/sizes";
 import styled from "@emotion/styled";
 import { ButtonHTMLAttributes, DetailedHTMLProps, FC, ReactNode } from "react";
+import { BiLoaderAlt } from "react-icons/bi";
+import { ButtonSpinner } from "./Button";
+import { Flex } from "./Flex";
 
 interface IconButtonProps {
 	glow?: boolean;
@@ -20,6 +23,7 @@ interface IIconButton
 }
 
 const IconButtonContainer = styled.button((props: IconButtonProps) => ({
+	position: "relative",
 	width: buttonSizes[props.size || "md"].iconBtnSize,
 	height: buttonSizes[props.size || "md"].iconBtnSize,
 	background: colorSchemes[props.colorScheme || "whiteAlpha"].background,
@@ -37,6 +41,15 @@ const IconButtonContainer = styled.button((props: IconButtonProps) => ({
 	},
 }));
 
-export const IconButton: FC<IIconButton> = ({ icon, ...props }) => {
-	return <IconButtonContainer {...props}>{icon}</IconButtonContainer>;
+export const IconButton: FC<IIconButton> = ({ isLoading, icon, ...props }) => {
+	return (
+		<IconButtonContainer {...props} disabled={isLoading}>
+			<Flex style={{ opacity: isLoading ? 0 : 1 }}>{icon}</Flex>
+			{isLoading && (
+				<ButtonSpinner>
+					<BiLoaderAlt />
+				</ButtonSpinner>
+			)}
+		</IconButtonContainer>
+	);
 };

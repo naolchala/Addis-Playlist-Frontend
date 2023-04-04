@@ -66,6 +66,7 @@ const editSong = async (params: EditSongParams) => {
 export interface DeleteSongParams {
 	token: string;
 	id: string;
+	callback?: () => void;
 }
 const deleteSong = async (params: DeleteSongParams) => {
 	const deletedSong = await axios

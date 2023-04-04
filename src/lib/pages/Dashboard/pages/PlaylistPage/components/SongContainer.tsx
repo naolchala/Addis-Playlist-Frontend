@@ -8,7 +8,7 @@ import React from "react";
 import { Divider } from "../Playlist-Page.style";
 
 export const SongsContainer = () => {
-	const { loading, error, songs } = useAppSelector((state) => state.songs);
+	const { loading, songs } = useAppSelector((state) => state.songs);
 
 	if (loading) {
 		return (
@@ -21,10 +21,6 @@ export const SongsContainer = () => {
 				))}
 			</Flex>
 		);
-	}
-
-	if (error) {
-		return <div>{error.msg}</div>;
 	}
 
 	return (

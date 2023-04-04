@@ -17,11 +17,10 @@ import {
 } from "redux-saga/effects";
 import {
 	addSongDone,
-	addSongError,
 	deleteSongDone,
 	editSongDone,
 	loadSongsDone,
-	loadSongsError,
+	songsError,
 } from "./songSlice";
 
 function* LoadSongs(action: PayloadAction<LoadSongsParameters>) {
@@ -34,7 +33,7 @@ function* LoadSongs(action: PayloadAction<LoadSongsParameters>) {
 		yield put(loadSongsDone(songs));
 	} catch (error) {
 		if (error instanceof AxiosError) {
-			yield put(loadSongsError(error.response?.data));
+			yield put(songsError());
 			yield put(
 				addToast({
 					title: error.response?.data.msg,
@@ -66,7 +65,7 @@ function* AddSong(action: PayloadAction<AddSongParams>) {
 		router.navigate(-1);
 	} catch (error) {
 		if (error instanceof AxiosError) {
-			yield put(addSongError(error.response?.data));
+			yield put(songsError());
 			yield put(
 				addToast({
 					title: error.response?.data.msg,
@@ -102,7 +101,7 @@ function* EditSong(action: PayloadAction<EditSongParams>) {
 		router.navigate(-1);
 	} catch (error) {
 		if (error instanceof AxiosError) {
-			yield put(addSongError(error.response?.data));
+			yield put(songsError());
 			yield put(
 				addToast({
 					title: error.response?.data.msg,
@@ -132,13 +131,17 @@ function* DeleteSong(action: PayloadAction<DeleteSongParams>) {
 		);
 	} catch (error) {
 		if (error instanceof AxiosError) {
-			yield put(addSongError(error.response?.data));
+			yield put(songsError());
 			yield put(
 				addToast({
 					title: error.response?.data.msg,
 					colorScheme: "red",
 				})
 			);
+		}
+	} finally {
+		if (action.payload.callback) {
+			action.payload.callback();
 		}
 	}
 }

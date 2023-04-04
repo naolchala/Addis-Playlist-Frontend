@@ -1,6 +1,9 @@
 import { Flex } from "$components/Layout/Flex";
 import { IconButton } from "$components/Layout/IconButton";
 import { Skeleton } from "$components/Layout/Skeleton";
+import { useAppDispatch, useAppSelector } from "$stores/hooks";
+import { deleteSharedUserRequest } from "$stores/playlist/sharedUsersSlice";
+import { useState } from "react";
 import { BiTrash } from "react-icons/bi";
 import {
 	SharedUserContainer,
@@ -18,6 +21,24 @@ export interface ISharedUser {
 }
 
 export const SharedUser = (props: ISharedUser) => {
+	const dispatch = useAppDispatch();
+	const [isLoading, setLoading] = useState(false);
+	const { user } = useAppSelector((state) => state.user);
+	const { currentPlaylist } = useAppSelector((state) => state.playlist);
+
+	const deleteShared = () => {
+		setLoading(true);
+		dispatch(
+			deleteSharedUserRequest({
+				token: user?.token || "",
+				playlistID: currentPlaylist?.id || "",
+				userID: props.id,
+				callback() {
+					setLoading(false);
+				},
+			})
+		);
+	};
 	return (
 		<SharedUserContainer>
 			<SharedUserAvatar src={props.photoURL} />
@@ -25,7 +46,11 @@ export const SharedUser = (props: ISharedUser) => {
 				<SharedUserName>{`${props.firstName} ${props.lastName}`}</SharedUserName>
 				<SharedUserEmail>{props.email}</SharedUserEmail>
 			</Flex>
-			<IconButton icon={<BiTrash />} />
+			<IconButton
+				icon={<BiTrash />}
+				isLoading={isLoading}
+				onClick={deleteShared}
+			/>
 		</SharedUserContainer>
 	);
 };

@@ -38,5 +38,31 @@ const addSharedUser = async ({ token, playlistID, email }: AddSharedParams) => {
 	return newUser;
 };
 
-const SharedAPI = { addSharedUser, loadSharedUsers };
+export interface DeleteSharedParams {
+	token: string;
+	playlistID: string;
+	userID: string;
+	callback?: () => void;
+}
+
+const deleteSharedUser = async ({
+	token,
+	playlistID,
+	userID,
+}: DeleteSharedParams) => {
+	const deletedUser = await axios
+		.post<SharedUserResponse>(
+			apiUrl + "/playlist/shared-delete",
+			{
+				playlistID,
+				userID,
+			},
+			authHeader(token)
+		)
+		.then((res) => res.data);
+
+	return deletedUser;
+};
+
+const SharedAPI = { addSharedUser, loadSharedUsers, deleteSharedUser };
 export default SharedAPI;

@@ -13,7 +13,6 @@ export interface SongStateType {
 	deleting: boolean;
 	loading: boolean;
 	songs: SongResponse[];
-	error?: ErrorResponse;
 	currentSong?: SongResponse;
 }
 
@@ -33,14 +32,9 @@ const SongSlice = createSlice({
 		) => {
 			state.loading = true;
 			state.songs = [];
-			state.error = undefined;
 		},
 		loadSongsDone: (state, actions: PayloadAction<SongResponse[]>) => {
 			state.songs = actions.payload;
-			state.loading = false;
-		},
-		loadSongsError: (state, actions: PayloadAction<ErrorResponse>) => {
-			state.error = actions.payload;
 			state.loading = false;
 		},
 		addSongRequested: (state, action: PayloadAction<AddSongParams>) => {
@@ -48,11 +42,6 @@ const SongSlice = createSlice({
 		},
 		addSongDone(state, action: PayloadAction<SongResponse>) {
 			state.songs.push(action.payload);
-			state.loading = false;
-			state.error = undefined;
-		},
-		addSongError: (state, action: PayloadAction<ErrorResponse>) => {
-			state.error = action.payload;
 			state.loading = false;
 		},
 		editSongRequest: (state, action: PayloadAction<EditSongParams>) => {
@@ -73,6 +62,10 @@ const SongSlice = createSlice({
 				(song) => song.id != action.payload.id
 			);
 		},
+		songsError: (state) => {
+			state.loading = false;
+			state.deleting = false;
+		},
 		setCurrentSong: (
 			state,
 			actions: PayloadAction<SongResponse | undefined>
@@ -84,15 +77,14 @@ const SongSlice = createSlice({
 
 export const {
 	loadSongsDone,
-	loadSongsError,
 	loadSongsRequested,
 	addSongRequested,
 	addSongDone,
-	addSongError,
 	editSongRequest,
 	editSongDone,
 	deleteSongDone,
 	deleteSongRequest,
 	setCurrentSong,
+	songsError,
 } = SongSlice.actions;
 export default SongSlice.reducer;

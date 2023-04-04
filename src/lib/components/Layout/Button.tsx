@@ -108,7 +108,7 @@ export const spin = keyframes`
 	}
 `;
 
-const ButtonSpinner = styled.span({
+export const ButtonSpinner = styled.span({
 	position: "absolute",
 	top: "50%",
 	left: "50%",

@@ -18,6 +18,7 @@ export const SlideIn = keyframes({
 });
 
 export const MenuContent = styled.div({
+	zIndex: "999999",
 	position: "absolute",
 	width: "max-content",
 	display: "flex",

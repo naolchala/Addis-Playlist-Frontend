@@ -36,15 +36,22 @@ export interface ISongCard {
 
 export const SongItem = ({ song, cover, suggestion }: ISongCard) => {
 	const { user } = useAppSelector((state) => state.user);
+	const { deleting } = useAppSelector((state) => state.songs);
 	const [isOpen, setOpen] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
 	const remove = () => {
+		setIsLoading(true);
+		setOpen(false);
 		dispatch(
 			deleteSongRequest({
 				id: song.id || "",
 				token: user?.token || "",
+				callback() {
+					setIsLoading(false);
+				},
 			})
 		);
 	};
@@ -124,6 +131,7 @@ export const SongItem = ({ song, cover, suggestion }: ISongCard) => {
 								icon={<BiDotsVerticalRounded />}
 								size="xl"
 								onClick={() => setOpen((val) => !val)}
+								isLoading={isLoading}
 							></IconButton>
 						</Menu>
 					</Flex>

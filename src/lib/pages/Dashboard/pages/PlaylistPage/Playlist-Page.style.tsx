@@ -28,18 +28,6 @@ export const PlaylistDescription = styled.p({
 	marginBottom: "40px",
 });
 
-export const ExampleSong: ISongCard = {
-	id: "123",
-	title: "Rasputin",
-	album: "Rasputin",
-	artist: "Majestic",
-	addedAt: new Date().toDateString(),
-	playlistID: "1234",
-	deezerURL: "https://www.deezer.com/track/1242670642",
-	releaseYear: 2018,
-	duration: 220,
-};
-
 export const Divider = styled.div({
 	display: "block",
 	height: "1px",

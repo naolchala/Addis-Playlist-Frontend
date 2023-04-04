@@ -19,6 +19,7 @@ export const ToastListContainer = styled.div({
 	flexDirection: "column",
 	bottom: "20px",
 	right: "20px",
+	zIndex: "99999999",
 });
 
 export interface ToastContainerProps {

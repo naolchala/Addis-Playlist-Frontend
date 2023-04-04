@@ -117,6 +117,7 @@ const PlaylistSlice = createSlice({
 });
 
 export const {
+	setKeyword,
 	searchDone,
 	searchError,
 	searchRequested,

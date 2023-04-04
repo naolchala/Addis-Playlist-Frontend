@@ -7,6 +7,7 @@ import {
 } from "./playlist/playlistSaga";
 import {
 	watchAddSharedRequest,
+	watchDeleteSharedUserRequest,
 	watchLoadSharedRequest,
 } from "./playlist/sharedUsersSaga";
 import {
@@ -31,5 +32,6 @@ export function* rootSaga() {
 		watchDeleteSongRequest(),
 		watchAddSharedRequest(),
 		watchLoadSharedRequest(),
+		watchDeleteSharedUserRequest(),
 	]);
 }

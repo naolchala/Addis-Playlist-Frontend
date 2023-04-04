@@ -5,38 +5,47 @@ import styled from "@emotion/styled";
 import { FC, ReactNode } from "react";
 import { NavLink } from "react-router-dom";
 
-export const DashboardContainer = styled.div({
-	width: "100%",
-	height: "100%",
-	display: "flex",
-	gap: "20px",
-});
+export const DashboardContainer = styled.div(
+	mediaQuery({
+		width: "100%",
+		height: "100%",
+		display: "flex",
+		flexDirection: ["column-reverse", "row", "row"],
+		gap: "20px",
+	})
+);
 export const DashboardSideNav = styled.div(
 	mediaQuery({
-		width: "300px",
 		display: "flex",
-		flexDirection: "column",
+		flexDirection: ["row", "column", "column"],
 		borderRight: "1px solid " + colors.whiteAlpha[50],
-		padding: "20px",
+		padding: ["10px", "15px", "20px"],
+		borderRadius: ["5px", "0"],
 		gap: "10px",
-		position: ["fixed", "fixed", "relative"],
-		background: [colors.background, colors.background, "transparent"],
-		height: "100%",
+		position: ["fixed", "relative", "relative"],
+		height: ["auto", "auto", "100%"],
 		zIndex: "9999",
-		left: ["-100%", "-100%", "0"],
+		overflow: "hidden",
+		left: ["50%", "0px"],
+		bottom: ["10px", "0"],
+		transform: ["translateX(-50%)", "translateX(0)"],
+		background: [colors.background + "ca", "transparent"],
 	})
 );
 
-export const SideNavTitle = styled.h1({
-	fontFamily: fonts.header,
-	textTransform: "uppercase",
-	fontWeight: "900",
-	marginBottom: "20px",
+export const SideNavTitle = styled.h1(
+	mediaQuery({
+		fontFamily: fonts.header,
+		textTransform: "uppercase",
+		fontWeight: "900",
+		marginBottom: "20px",
+		display: ["none", "none", "block"],
 
-	"& :last-child": {
-		color: colors.yellow[300],
-	},
-});
+		"& :last-child": {
+			color: colors.yellow[300],
+		},
+	})
+);
 
 const SideNavItemContainer = styled(NavLink)({
 	padding: "14px",
@@ -54,16 +63,21 @@ const SideNavItemContainer = styled(NavLink)({
 		background: colors.whiteAlpha[300],
 	},
 });
-const SideNavItemIcon = styled.span({
-	marginRight: "15px",
-	display: "grid",
-	placeItems: "center",
-	fontSize: "1.4rem",
-});
-const SideNavItemLabel = styled.span({
-	textTransform: "uppercase",
-	fontWeight: "600",
-});
+const SideNavItemIcon = styled.span(
+	mediaQuery({
+		marginRight: ["0", "0", "15px"],
+		display: "grid",
+		placeItems: "center",
+		fontSize: "1.4rem",
+	})
+);
+const SideNavItemLabel = styled.span(
+	mediaQuery({
+		display: ["none", "none", "block"],
+		textTransform: "uppercase",
+		fontWeight: "600",
+	})
+);
 
 interface ISideNav {
 	label: string;
@@ -85,8 +99,10 @@ export const DashboardOutletContainer = styled.div({
 	flex: "1",
 });
 
-export const DashboardPage = styled.div({
-	display: "flex",
-	flexDirection: "column",
-	padding: "40px",
-});
+export const DashboardPage = styled.div(
+	mediaQuery({
+		display: "flex",
+		flexDirection: "column",
+		padding: ["20px", "20px", "40px"],
+	})
+);

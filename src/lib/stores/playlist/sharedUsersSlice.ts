@@ -1,4 +1,8 @@
-import { AddSharedParams, LoadSharedParams } from "$api/sharedUser";
+import {
+	AddSharedParams,
+	DeleteSharedParams,
+	LoadSharedParams,
+} from "$api/sharedUser";
 import { ErrorResponse, SharedUserResponse } from "$types/user.types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -39,9 +43,13 @@ const SharedUsersSlice = createSlice({
 			state.sharedUsers = action.payload;
 			state.loading.load = false;
 		},
-		loadSharedUsersError: (state, action: PayloadAction<ErrorResponse>) => {
+		sharedUserError: (state, action: PayloadAction<ErrorResponse>) => {
 			state.error = action.payload;
-			state.loading.load = false;
+			state.loading = {
+				add: false,
+				load: false,
+				remove: false,
+			};
 		},
 		addSharedUserRequest: (
 			state,
@@ -56,14 +64,31 @@ const SharedUsersSlice = createSlice({
 			state.loading.add = false;
 			state.sharedUsers.unshift(action.payload);
 		},
+		deleteSharedUserRequest: (
+			state,
+			action: PayloadAction<DeleteSharedParams>
+		) => {
+			state.loading.remove = true;
+		},
+		deleteSharedUserDone: (
+			state,
+			action: PayloadAction<SharedUserResponse>
+		) => {
+			state.sharedUsers = state.sharedUsers.filter(
+				(user) => user.id != action.payload.id
+			);
+			state.loading.remove = false;
+		},
 	},
 });
 
 export const {
 	loadSharedUsersDone,
-	loadSharedUsersError,
+	sharedUserError,
 	loadSharedUsersRequested,
 	addSharedUserDone,
 	addSharedUserRequest,
+	deleteSharedUserDone,
+	deleteSharedUserRequest,
 } = SharedUsersSlice.actions;
 export default SharedUsersSlice.reducer;
