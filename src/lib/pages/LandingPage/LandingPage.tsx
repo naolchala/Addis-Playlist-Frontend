@@ -20,8 +20,18 @@ export const LandingPage = () => {
 			<LandingPageContainer>
 				<Navbar>
 					<NavbarItem to="/">Home</NavbarItem>
-					<NavbarItem to="/about">About</NavbarItem>
-					<NavbarItem to="http://github.com">Github</NavbarItem>
+					<NavbarItem
+						to="https://neobrutalist-portfolio.vercel.app/"
+						target={"_blank"}
+					>
+						About
+					</NavbarItem>
+					<NavbarItem
+						to="https://github.com/naolchala/Addis-Playlist-Frontend"
+						target={"_blank"}
+					>
+						Github
+					</NavbarItem>
 					<NavbarItem to="/auth/login" primary={true}>
 						Login
 					</NavbarItem>
@@ -47,6 +57,11 @@ export const LandingPage = () => {
 							Get Started
 						</Button>
 						<Button
+							onClick={() =>
+								router(
+									"https://neobrutalist-portfolio.vercel.app/"
+								)
+							}
 							size="xl"
 							shape="round"
 							colorScheme="whiteAlpha"
