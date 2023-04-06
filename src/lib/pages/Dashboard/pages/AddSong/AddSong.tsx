@@ -67,7 +67,11 @@ export const AddSong = ({ isEdit }: IAddSongs) => {
 			<form onSubmit={formik.handleSubmit}>
 				<Flex direction={"column"} marginTop="50px">
 					<SongAutoCompleteField formik={formik} disabled={loading} />
-					<Flex gap="20px" marginTop={"20px"}>
+					<Flex
+						direction={["column", "row"]}
+						gap="20px"
+						marginTop={"20px"}
+					>
 						<FormikFormField
 							disabled={loading}
 							formik={formik}
@@ -81,7 +85,11 @@ export const AddSong = ({ isEdit }: IAddSongs) => {
 							disabled={loading}
 						></FormikFormField>
 					</Flex>
-					<Flex gap="20px" marginTop={"20px"}>
+					<Flex
+						direction={["column", "column", "row"]}
+						gap="20px"
+						marginTop={"20px"}
+					>
 						<FormikFormField
 							formik={formik}
 							name="releaseYear"
