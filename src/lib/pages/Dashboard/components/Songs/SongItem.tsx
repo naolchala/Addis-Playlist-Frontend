@@ -36,6 +36,7 @@ export interface ISongCard {
 
 export const SongItem = ({ song, cover, suggestion }: ISongCard) => {
 	const { user } = useAppSelector((state) => state.user);
+	const { currentPlaylist } = useAppSelector((state) => state.playlist);
 	const { deleting } = useAppSelector((state) => state.songs);
 	const [isOpen, setOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
@@ -99,7 +100,7 @@ export const SongItem = ({ song, cover, suggestion }: ISongCard) => {
 						<SongProperty>{song.releaseYear}</SongProperty>
 					</Flex>
 				)}
-				{!suggestion && (
+				{user?.id === currentPlaylist?.userID && !suggestion && (
 					<Flex>
 						<Menu
 							isOpen={isOpen}

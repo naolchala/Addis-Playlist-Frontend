@@ -8,6 +8,8 @@ import React from "react";
 import { Divider } from "../Playlist-Page.style";
 
 export const SongsContainer = () => {
+	const { user } = useAppSelector((state) => state.user);
+	const { currentPlaylist } = useAppSelector((state) => state.playlist);
 	const { loading, songs } = useAppSelector((state) => state.songs);
 
 	if (loading) {
